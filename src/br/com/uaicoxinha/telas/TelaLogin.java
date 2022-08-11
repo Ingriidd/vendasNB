@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package br.com.uaicoxinha.telas;
+
 import java.sql.*;
 import br.com.uaicoxinha.dal.ModuloConexao;
 import javax.swing.JOptionPane;
@@ -12,12 +13,13 @@ import javax.swing.JOptionPane;
  * @author Nicolas
  */
 public class TelaLogin extends javax.swing.JFrame {
-Connection conexao = null;
-PreparedStatement pst = null;
-ResultSet rs = null;
 
-    public void logar(){
-        String sql = "select * from usuario where login=? and senha=?";
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+
+    public void logar() {
+        String sql = "select * from usuario where login = ? and senha = ?";
         try {
             // linhas abaixo preparam a consulta ao banco em fução do
             //que foi digitado nas caixas de texto.
@@ -28,19 +30,31 @@ ResultSet rs = null;
             // executa a query
             rs = pst.executeQuery();
             // se existir usuario e senha correspondente
-            if(rs.next()){
-                TelaPrincipal principal = new TelaPrincipal();
-                principal.setVisible(true);
-                this.dispose();
+            if (rs.next()) {
+                // linha a baixo obtem o conteudo do campo cargo do usuario
+                String cargo = rs.getString(7);
+                // estrutura a baixo faz o tratamento do usuario
+                if ("admin".equals(txtUsuario.getText())) {
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    TelaPrincipal.menCadUsu.setEnabled(true);
+                    TelaPrincipal.menRel.setEnabled(true);
+                    this.dispose();
+                } else {
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    this.dispose();
+                }
                 conexao.close();
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null, "usuário e/ou senha inválido");
             }
-            
+
         } catch (Exception e) {
             JOptionPane.showConfirmDialog(null, e);
         }
     }
+
     /**
      * Creates new form TelaLogin
      */
@@ -49,9 +63,9 @@ ResultSet rs = null;
         conexao = ModuloConexao.conector();
         // a linha abaixo serve de apoio ao status da conexao
         //System.out.println(conexao);
-        if(conexao != null){
+        if (conexao != null) {
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/uaicoxinha/icones/dbok.png")));
-        }else {
+        } else {
             lblStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/uaicoxinha/icones/dberror.png")));
         }
     }
