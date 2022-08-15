@@ -8,13 +8,53 @@ package br.com.uaicoxinha.telas;
  *
  * @author Nicolas
  */
+import java.sql.*;
+import br.com.uaicoxinha.dal.ModuloConexao;
+import javax.swing.JOptionPane;
 public class TelaUsuario extends javax.swing.JInternalFrame {
-
+    
+    Connection conexao = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
     /**
      * Creates new form TelaUsuario
      */
     public TelaUsuario() {
+        conexao = ModuloConexao.conector();
         initComponents();
+    }
+    
+    private void consultar() {
+        String sql = "select * from usuario where nome=?";
+        
+        try {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1,txtUsuNome.getText());
+            rs = pst.executeQuery();
+            
+            if (rs.next()) {
+                txtUsuId.setText(rs.getString(1));
+                txtUsuNome.setText(rs.getString(2));
+                txtUsuCpf.setText(rs.getString(3));
+                txtUsuTel.setText(rs.getString(4));
+                txtUsuLogin.setText(rs.getString(5));
+                txtUsuSenha.setText(rs.getString(6));
+                txtUsuCargo.setText(rs.getString(7));
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario não cadastrado!");
+                // Limpar os campos
+                txtUsuId.setText(null);
+                txtUsuCpf.setText(null);
+                txtUsuTel.setText(null);
+                txtUsuLogin.setText(null);
+                txtUsuSenha.setText(null);
+                txtUsuCargo.setText(null);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
 
     /**
@@ -99,10 +139,14 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
         btnUsuRead.setToolTipText("Consultar");
         btnUsuRead.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuRead.setPreferredSize(new java.awt.Dimension(80, 80));
+        btnUsuRead.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuReadActionPerformed(evt);
+            }
+        });
 
         btnUsuUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/uaicoxinha/icones/update.png"))); // NOI18N
         btnUsuUpdate.setToolTipText("Alterar");
-        btnUsuUpdate.setActionCommand("");
         btnUsuUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUsuUpdate.setPreferredSize(new java.awt.Dimension(80, 80));
 
@@ -214,6 +258,11 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     private void txtUsuSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuSenhaActionPerformed
+
+    private void btnUsuReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuReadActionPerformed
+        // TODO add your handling code here:
+        consultar();
+    }//GEN-LAST:event_btnUsuReadActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
