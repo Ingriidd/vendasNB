@@ -6,6 +6,7 @@ package br.com.uaicoxinha.telas;
 
 import java.sql.*;
 import br.com.uaicoxinha.dal.ModuloConexao;
+import java.awt.Color;
 import javax.swing.JOptionPane;
 
 /**
@@ -31,18 +32,19 @@ public class TelaLogin extends javax.swing.JFrame {
             rs = pst.executeQuery();
             // se existir usuario e senha correspondente
             if (rs.next()) {
-                // linha a baixo obtem o conteudo do campo cargo do usuario
-                String cargo = rs.getString(7);
                 // estrutura a baixo faz o tratamento do usuario
                 if ("admin".equals(txtUsuario.getText())) {
                     TelaPrincipal principal = new TelaPrincipal();
                     principal.setVisible(true);
                     TelaPrincipal.menCadUsu.setEnabled(true);
                     TelaPrincipal.menRel.setEnabled(true);
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                    TelaPrincipal.lblUsuario.setForeground(Color.red);
                     this.dispose();
                 } else {
                     TelaPrincipal principal = new TelaPrincipal();
                     principal.setVisible(true);
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
                     this.dispose();
                 }
                 conexao.close();
