@@ -26,11 +26,13 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
     }
     
     private void consultar() {
-        String sql = "select * from usuario where nome=?";
+        String sql = "select * from usuario where nome=? or id=?";
         
         try {
             pst = conexao.prepareStatement(sql);
             pst.setString(1,txtUsuNome.getText());
+            pst.setString(2,txtUsuId.getText());
+
             rs = pst.executeQuery();
             
             if (rs.next()) {

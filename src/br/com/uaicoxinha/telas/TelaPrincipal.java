@@ -39,6 +39,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         menCadPro = new javax.swing.JMenuItem();
         menCadFor = new javax.swing.JMenuItem();
         menCadUsu = new javax.swing.JMenuItem();
+        menCadCar = new javax.swing.JMenuItem();
         menRel = new javax.swing.JMenu();
         menRelVen = new javax.swing.JMenuItem();
         menAju = new javax.swing.JMenu();
@@ -101,6 +102,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         menCad.add(menCadUsu);
+
+        menCadCar.setText("Cargo");
+        menCadCar.setEnabled(false);
+        menCadCar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menCadCarActionPerformed(evt);
+            }
+        });
+        menCad.add(menCadCar);
 
         Menu.add(menCad);
 
@@ -208,6 +218,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         sobre.setVisible(true);
     }//GEN-LAST:event_menAjuSobActionPerformed
 
+    private void menCadCarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCadCarActionPerformed
+        // TODO add your handling code here:
+        TelaCargo cargo = new TelaCargo();
+        cargo.setVisible(true);
+        Desktop.add(cargo);
+    }//GEN-LAST:event_menCadCarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -252,6 +269,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menAju;
     private javax.swing.JMenuItem menAjuSob;
     private javax.swing.JMenu menCad;
+    public static javax.swing.JMenuItem menCadCar;
     private javax.swing.JMenuItem menCadFor;
     private javax.swing.JMenuItem menCadPro;
     public static javax.swing.JMenuItem menCadUsu;
