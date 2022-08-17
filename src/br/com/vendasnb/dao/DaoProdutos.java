@@ -92,21 +92,14 @@ public class DaoProdutos extends ConexaoMysql {
     
     /**
      * Retornar um produto pelo codigo
-     * @param pIdPoduto
+     * @param pIdProduto
      * @return ModelProdutos
      */
-    public ModelProdutos retornarProdutoDAO(int pIdPoduto){
+    public ModelProdutos retornarProdutoDAO(int pIdProduto){
         ModelProdutos modelProdutos = new ModelProdutos();
         try {
             this.conectar();
-            this.executarSQL("SELECT "
-                    + "id, "
-                    + "nome, "
-                    + "estoque, "
-                    + "valor,"
-                    + "valor_compra, "
-                    + "fornecedor_id"
-                    + "FROM produto WHERE id = '" + pIdPoduto + "';");
+            this.executarSQL("SELECT id, nome,estoque,valor,valor_compra, fornecedor_id FROM produto WHERE id = '" + pIdProduto + "';");
             while (this.getResultSet().next()) {                
                 modelProdutos.setIdProduto(this.getResultSet().getInt(1));
                 modelProdutos.setNome(this.getResultSet().getString(2));
@@ -136,14 +129,7 @@ public class DaoProdutos extends ConexaoMysql {
         
         try {
             this.conectar();
-            this.executarSQL("SELECT "
-                    + "id, "
-                    + "nome, "
-                    + "estoque, "
-                    + "valor,"
-                    + "valor_compra, "
-                    + "fornecedor_id"
-                    + "FROM produto;");
+            this.executarSQL("SELECT id, nome,estoque,valor,valor_compra, fornecedor_id FROM produto;");
             while (this.getResultSet().next()) {
                 modelProdutos = new ModelProdutos();
                 modelProdutos.setIdProduto(this.getResultSet().getInt(1));

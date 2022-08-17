@@ -4,7 +4,7 @@
  */
 package br.com.vendasnb.conexoes;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,14 +22,13 @@ public class ConexaoMysql {
     private ResultSet resultSet;
 
 
-    private String servidor = "localhost";
+    private String servidor = "localhost:3306";
     private String nomeDoBanco = "dbvendasnb";
     private String usuario = "root";
     private String senha = "mysql";
     
-    public ConexaoMysql(){
-        
-    }
+    public ConexaoMysql(){}
+    
     public ConexaoMysql(String pServidor, String pNomeDoBanco, String pUsuario, String pSenha){
         this.servidor = pServidor;
         this.nomeDoBanco = pNomeDoBanco;
@@ -44,7 +43,8 @@ public class ConexaoMysql {
     public Connection conectar(){
         try {
             //Driver do PostgreSQL
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
+           // Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
             //local do banco, nome do banco, usuario e senha
             String url = "jdbc:mysql://" + servidor + "/" + nomeDoBanco;
@@ -53,7 +53,7 @@ public class ConexaoMysql {
             //se ocorrer tudo bem, ou seja, se conectar a linha a segui é executada
             this.status = true;
         }
-        catch(ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException e){
+        catch(ClassNotFoundException | SQLException e){
             JOptionPane.showMessageDialog(null, e.getMessage());
         }
         return this.getCon();
