@@ -287,12 +287,12 @@ public class ViewProduto extends javax.swing.JFrame {
         modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
         
         if (controllerProdutos.salvarProdutosController(modelProdutos)>0) {
-            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
             this.limparCampo();
             habilitarDesabilitarCampos(false);
         } else {
-            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!");
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!", "ERRO" ,JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnProSaveActionPerformed
 
@@ -302,11 +302,11 @@ public class ViewProduto extends javax.swing.JFrame {
         int codigoProduto = (int) tableProdutos.getValueAt(linha, 0);
         
         if(controllerProdutos.excluirProdutoController(codigoProduto)){
-            JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
+            JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
             this.habilitarDesabilitarCampos(false);
         }else {
-            JOptionPane.showMessageDialog(this, "Erro ao excluir o produto!");
+            JOptionPane.showMessageDialog(this, "Erro ao excluir o produto!", "ERRO" ,JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnProDeleteActionPerformed
 
