@@ -6,6 +6,7 @@ package br.com.vendasnb.view;
 
 import br.com.vendasnb.controller.ControllerProdutos;
 import br.com.vendasnb.model.ModelProdutos;
+import br.com.vendasnb.util.Formatador;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -22,6 +23,7 @@ public class ViewProduto extends javax.swing.JFrame {
     ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
     ControllerProdutos controllerProdutos = new ControllerProdutos();
     ModelProdutos modelProdutos = new ModelProdutos();
+    Formatador formatador = new Formatador();
     String salvarAlterar;
 
     /**
@@ -177,6 +179,11 @@ public class ViewProduto extends javax.swing.JFrame {
         txtProValorVen.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
 
         txtProValorCom.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtProValorCom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProValorComActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -257,7 +264,7 @@ public class ViewProduto extends javax.swing.JFrame {
                     .addComponent(txtProValorCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProValorVen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProCodFor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
@@ -362,6 +369,10 @@ public class ViewProduto extends javax.swing.JFrame {
         classificador.setRowFilter(RowFilter.regexFilter(texto, 1));
     }//GEN-LAST:event_btnProPesquisaActionPerformed
 
+    private void txtProValorComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProValorComActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProValorComActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -450,8 +461,8 @@ public class ViewProduto extends javax.swing.JFrame {
         try {
             modelProdutos.setNome(this.txtProNome.getText());
             modelProdutos.setEstoque(Integer.parseInt(this.txtProEst.getText()));
-            modelProdutos.setValor(Double.parseDouble(this.txtProValorVen.getText()));
-            modelProdutos.setValorCompra(Double.parseDouble(this.txtProValorCom.getText()));
+            modelProdutos.setValor(formatador.converterVirgulaParaPonto(this.txtProValorVen.getText()));
+            modelProdutos.setValorCompra(formatador.converterVirgulaParaPonto(this.txtProValorCom.getText()));
             modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
 
             if (controllerProdutos.salvarProdutosController(modelProdutos) > 0) {
@@ -471,8 +482,8 @@ public class ViewProduto extends javax.swing.JFrame {
         try {
             modelProdutos.setNome(this.txtProNome.getText());
             modelProdutos.setEstoque(Integer.parseInt(this.txtProEst.getText()));
-            modelProdutos.setValor(Double.parseDouble(this.txtProValorVen.getText()));
-            modelProdutos.setValorCompra(Double.parseDouble(this.txtProValorCom.getText()));
+            modelProdutos.setValor(formatador.converterVirgulaParaPonto(this.txtProValorVen.getText()));
+            modelProdutos.setValorCompra(formatador.converterVirgulaParaPonto(this.txtProValorCom.getText()));
             modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
 
             if (controllerProdutos.alterarProdutoController(modelProdutos)) {
