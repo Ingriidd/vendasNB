@@ -195,6 +195,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProCod">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtProNome">
         </Component>
@@ -283,6 +287,9 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProCancelarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProNew">
           <Properties>
@@ -291,6 +298,9 @@
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Novo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProNewActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProAlter">
           <Properties>

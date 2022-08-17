@@ -27,6 +27,7 @@ public class ViewProduto extends javax.swing.JFrame {
         initComponents();
         carregarProdutos();
         setLocationRelativeTo(null);
+        habilitarDesabilitarCampos(false);
     }
 
     /**
@@ -76,6 +77,9 @@ public class ViewProduto extends javax.swing.JFrame {
 
         jLabel6.setText("Codigo Fornecedor: ");
 
+        txtProCod.setEditable(false);
+        txtProCod.setEnabled(false);
+
         tableProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -119,9 +123,19 @@ public class ViewProduto extends javax.swing.JFrame {
 
         btnProCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/cancelar.png"))); // NOI18N
         btnProCancelar.setToolTipText("Cancelar");
+        btnProCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProCancelarActionPerformed(evt);
+            }
+        });
 
         btnProNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/novo.png"))); // NOI18N
         btnProNew.setToolTipText("Novo");
+        btnProNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProNewActionPerformed(evt);
+            }
+        });
 
         btnProAlter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/editar.png"))); // NOI18N
         btnProAlter.setToolTipText("Alterar");
@@ -275,6 +289,8 @@ public class ViewProduto extends javax.swing.JFrame {
         if (controllerProdutos.salvarProdutosController(modelProdutos)>0) {
             JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
             this.carregarProdutos();
+            this.limparCampo();
+            habilitarDesabilitarCampos(false);
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!");
         }
@@ -288,10 +304,23 @@ public class ViewProduto extends javax.swing.JFrame {
         if(controllerProdutos.excluirProdutoController(codigoProduto)){
             JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
             this.carregarProdutos();
+            this.habilitarDesabilitarCampos(false);
         }else {
             JOptionPane.showMessageDialog(this, "Erro ao excluir o produto!");
         }
     }//GEN-LAST:event_btnProDeleteActionPerformed
+
+    private void btnProNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProNewActionPerformed
+        // TODO add your handling code here:
+        habilitarDesabilitarCampos(true);
+        
+    }//GEN-LAST:event_btnProNewActionPerformed
+
+    private void btnProCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProCancelarActionPerformed
+        // TODO add your handling code here:
+        habilitarDesabilitarCampos(false);
+        limparCampo();
+    }//GEN-LAST:event_btnProCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,6 +375,31 @@ public class ViewProduto extends javax.swing.JFrame {
                 listaModelProdutos.get(i).getFornecedor()
             });
         }
+    }
+    
+    /***
+     * Habilitar e desabilitar os campos do formulario
+     * @param condicao 
+     */
+    private void habilitarDesabilitarCampos(boolean condicao){
+        txtProNome.setEnabled(condicao);
+        txtProEst.setEnabled(condicao);
+        txtProValorCom.setEnabled(condicao);
+        txtProValorVen.setEnabled(condicao);
+        txtProCodFor.setEnabled(condicao);
+    }
+    
+    /***
+     * Limpar os campos do formulario
+     * @param condicao 
+     */
+    
+    private void limparCampo(){
+        txtProNome.setText("");
+        txtProEst.setText("");
+        txtProValorCom.setText("");
+        txtProValorVen.setText("");
+        txtProCodFor.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
