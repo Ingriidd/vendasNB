@@ -49,7 +49,7 @@ public class DaoProdutos extends ConexaoMysql {
         try {
             this.conectar();
             return this.executarUpdateDeleteSQL(
-                    "DELETE FROM produto WHERE id= '" + pIdProduto + "';"
+                "DELETE FROM produto WHERE id= '" + pIdProduto + "';"
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -71,11 +71,11 @@ public class DaoProdutos extends ConexaoMysql {
             return this.executarUpdateDeleteSQL(
                 "UPDATE produto SET "
                 + "nome = '" + pModelProdutos.getNome() + "',"
-                + "estoque'" + pModelProdutos.getEstoque() + "',"
-                + "valor'" + pModelProdutos.getValor() + "',"
-                + "valor_compra'" + pModelProdutos.getValorCompra() + "',"
-                + "fornecedor_id'" + pModelProdutos.getFornecedor() + "'"
-                + "WHERE id = '" + pModelProdutos.getIdProduto()+ "';"    
+                + "estoque ='" + pModelProdutos.getEstoque() + "',"
+                + "valor ='" + pModelProdutos.getValor() + "',"
+                + "valor_compra ='" + pModelProdutos.getValorCompra() + "',"
+                + "fornecedor_id ='" + pModelProdutos.getFornecedor() + "'"
+                + "WHERE id = '" + pModelProdutos.getIdProduto()+ "'"    
             );
         } catch (Exception e) {
             e.printStackTrace();

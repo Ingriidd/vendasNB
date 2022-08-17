@@ -15,10 +15,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Nicolas
  */
 public class ViewProduto extends javax.swing.JFrame {
-    
-    ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>(); 
+
+    ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
     ControllerProdutos controllerProdutos = new ControllerProdutos();
     ModelProdutos modelProdutos = new ModelProdutos();
+    String salvarAlterar;
 
     /**
      * Creates new form ViewProduto
@@ -139,6 +140,11 @@ public class ViewProduto extends javax.swing.JFrame {
 
         btnProAlter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/editar.png"))); // NOI18N
         btnProAlter.setToolTipText("Alterar");
+        btnProAlter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProAlterActionPerformed(evt);
+            }
+        });
 
         btnProDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/deletar.png"))); // NOI18N
         btnProDelete.setToolTipText("Excluir");
@@ -279,48 +285,65 @@ public class ViewProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtProCodForActionPerformed
 
     private void btnProSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProSaveActionPerformed
-        // Salva um novo produto no banco
-        modelProdutos.setNome(this.txtProNome.getText());
-        modelProdutos.setEstoque(Integer.parseInt(this.txtProEst.getText()));
-        modelProdutos.setValor(Double.parseDouble(this.txtProValorVen.getText()));
-        modelProdutos.setValorCompra(Double.parseDouble(this.txtProValorCom.getText()));
-        modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
-        
-        if (controllerProdutos.salvarProdutosController(modelProdutos)>0) {
-            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
-            this.carregarProdutos();
-            this.limparCampo();
-            habilitarDesabilitarCampos(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!", "ERRO" ,JOptionPane.ERROR_MESSAGE);
+        // Salva um novo produto no banco    
+        if(salvarAlterar.equals("salvar")){
+           this.salvarProduto(); 
+        }else if (salvarAlterar.equals("alterar")){
+            this.alterarProduto();
         }
+        
+        
+        
     }//GEN-LAST:event_btnProSaveActionPerformed
 
     private void btnProDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProDeleteActionPerformed
         // Exclui um produto no banco
         int linha = tableProdutos.getSelectedRow();
         int codigoProduto = (int) tableProdutos.getValueAt(linha, 0);
-        
-        if(controllerProdutos.excluirProdutoController(codigoProduto)){
+
+        if (controllerProdutos.excluirProdutoController(codigoProduto)) {
             JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
             this.carregarProdutos();
             this.habilitarDesabilitarCampos(false);
-        }else {
-            JOptionPane.showMessageDialog(this, "Erro ao excluir o produto!", "ERRO" ,JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir o produto!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnProDeleteActionPerformed
 
     private void btnProNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProNewActionPerformed
-        // TODO add your handling code here:
+        // novo pra habilitar campos
         habilitarDesabilitarCampos(true);
-        
+        salvarAlterar = "salvar";
+
     }//GEN-LAST:event_btnProNewActionPerformed
 
     private void btnProCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProCancelarActionPerformed
-        // TODO add your handling code here:
+        // cancelar para desabilitar e limpar campos
         habilitarDesabilitarCampos(false);
         limparCampo();
     }//GEN-LAST:event_btnProCancelarActionPerformed
+
+    private void btnProAlterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProAlterActionPerformed
+        // Alterar registro no banco
+        salvarAlterar = "alterar";
+        habilitarDesabilitarCampos(true);
+        int linha = tableProdutos.getSelectedRow();
+        try {
+            int codigoProduto = (int) tableProdutos.getValueAt(linha, 0);
+            // recuperar os dados do banco
+            modelProdutos = controllerProdutos.retornaProdutoController(codigoProduto);
+            // setar na interface
+            this.txtProCod.setText(String.valueOf(modelProdutos.getIdProduto()));
+            this.txtProNome.setText(modelProdutos.getNome());
+            this.txtProEst.setText(String.valueOf(modelProdutos.getEstoque()));
+            this.txtProValorCom.setText(String.valueOf(modelProdutos.getValorCompra()));
+            this.txtProValorVen.setText(String.valueOf(modelProdutos.getValor()));
+            this.txtProCodFor.setText(String.valueOf(modelProdutos.getFornecedor()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado!", "AVISO", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnProAlterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,16 +379,17 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
     }
-    
-    /***
+
+    /**
+     * *
      * Preenche a tabela de produtos com os produtos cadastrados no banco
      */
-    private void carregarProdutos(){
+    private void carregarProdutos() {
         listaModelProdutos = controllerProdutos.retornaListaProdutoController();
         DefaultTableModel modelo = (DefaultTableModel) tableProdutos.getModel();
         modelo.setNumRows(0);
         // inserir produtos na tabela
-        for(int i=0; i < listaModelProdutos.size(); i++){
+        for (int i = 0; i < listaModelProdutos.size(); i++) {
             modelo.addRow(new Object[]{
                 listaModelProdutos.get(i).getIdProduto(),
                 listaModelProdutos.get(i).getNome(),
@@ -376,30 +400,75 @@ public class ViewProduto extends javax.swing.JFrame {
             });
         }
     }
-    
-    /***
+
+    /**
+     * *
      * Habilitar e desabilitar os campos do formulario
-     * @param condicao 
+     *
+     * @param condicao
      */
-    private void habilitarDesabilitarCampos(boolean condicao){
+    private void habilitarDesabilitarCampos(boolean condicao) {
         txtProNome.setEnabled(condicao);
         txtProEst.setEnabled(condicao);
         txtProValorCom.setEnabled(condicao);
         txtProValorVen.setEnabled(condicao);
         txtProCodFor.setEnabled(condicao);
     }
-    
-    /***
+
+    /**
+     * *
      * Limpar os campos do formulario
-     * @param condicao 
+     *
+     * @param condicao
      */
-    
-    private void limparCampo(){
+    private void limparCampo() {
         txtProNome.setText("");
         txtProEst.setText("");
         txtProValorCom.setText("");
         txtProValorVen.setText("");
         txtProCodFor.setText("");
+    }
+
+    private void salvarProduto() {
+        try {
+            modelProdutos.setNome(this.txtProNome.getText());
+            modelProdutos.setEstoque(Integer.parseInt(this.txtProEst.getText()));
+            modelProdutos.setValor(Double.parseDouble(this.txtProValorVen.getText()));
+            modelProdutos.setValorCompra(Double.parseDouble(this.txtProValorCom.getText()));
+            modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
+
+            if (controllerProdutos.salvarProdutosController(modelProdutos) > 0) {
+                JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                this.carregarProdutos();
+                this.limparCampo();
+                habilitarDesabilitarCampos(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void alterarProduto() {
+        try {
+            modelProdutos.setNome(this.txtProNome.getText());
+            modelProdutos.setEstoque(Integer.parseInt(this.txtProEst.getText()));
+            modelProdutos.setValor(Double.parseDouble(this.txtProValorVen.getText()));
+            modelProdutos.setValorCompra(Double.parseDouble(this.txtProValorCom.getText()));
+            modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
+
+            if (controllerProdutos.alterarProdutoController(modelProdutos)) {
+                JOptionPane.showMessageDialog(this, "Produto alterado com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                this.carregarProdutos();
+                this.limparCampo();
+                habilitarDesabilitarCampos(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao alterar o produto!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao alterar o produto!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

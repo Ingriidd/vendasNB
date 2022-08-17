@@ -14,7 +14,7 @@ public class ModelProdutos {
     private int idProduto;
     private String nome;
     private int estoque;
-    private Double valor;
+    private Double valorVenda;
     private Double valorCompra;
     private int fornecedor;
 
@@ -61,17 +61,17 @@ public class ModelProdutos {
     }
 
     /**
-     * @return the valor
+     * @return the valorVenda
      */
     public Double getValor() {
-        return valor;
+        return getValorVenda();
     }
 
     /**
-     * @param valor the valor to set
+     * @param valor the valorVenda to set
      */
     public void setValor(Double valor) {
-        this.valor = valor;
+        this.setValorVenda(valor);
     }
 
     /**
@@ -100,5 +100,19 @@ public class ModelProdutos {
      */
     public void setFornecedor(int fornecedor) {
         this.fornecedor = fornecedor;
+    }
+
+    /**
+     * @return the valorVenda
+     */
+    public Double getValorVenda() {
+        return valorVenda;
+    }
+
+    /**
+     * @param valorVenda the valorVenda to set
+     */
+    public void setValorVenda(Double valorVenda) {
+        this.valorVenda = valorVenda;
     }
 }
