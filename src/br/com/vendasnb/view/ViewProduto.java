@@ -7,6 +7,7 @@ package br.com.vendasnb.view;
 import br.com.vendasnb.controller.ControllerProdutos;
 import br.com.vendasnb.model.ModelProdutos;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,6 +18,7 @@ public class ViewProduto extends javax.swing.JFrame {
     
     ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>(); 
     ControllerProdutos controllerProdutos = new ControllerProdutos();
+    ModelProdutos modelProdutos = new ModelProdutos();
 
     /**
      * Creates new form ViewProduto
@@ -126,9 +128,19 @@ public class ViewProduto extends javax.swing.JFrame {
 
         btnProDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/deletar.png"))); // NOI18N
         btnProDelete.setToolTipText("Excluir");
+        btnProDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProDeleteActionPerformed(evt);
+            }
+        });
 
         btnProSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/salvar.png"))); // NOI18N
         btnProSave.setToolTipText("Salvar");
+        btnProSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProSaveActionPerformed(evt);
+            }
+        });
 
         btnProPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/pesquisar.png"))); // NOI18N
         btnProPesquisa.setToolTipText("Pesquisar");
@@ -173,11 +185,11 @@ public class ViewProduto extends javax.swing.JFrame {
                                             .addComponent(txtProCodFor, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel6)))
                                     .addComponent(txtProValorVen, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 116, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(8, 8, 8)
                                 .addComponent(btnProCancelar)
@@ -251,6 +263,35 @@ public class ViewProduto extends javax.swing.JFrame {
     private void txtProCodForActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProCodForActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProCodForActionPerformed
+
+    private void btnProSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProSaveActionPerformed
+        // Salva um novo produto no banco
+        modelProdutos.setNome(this.txtProNome.getText());
+        modelProdutos.setEstoque(Integer.parseInt(this.txtProEst.getText()));
+        modelProdutos.setValor(Double.parseDouble(this.txtProValorVen.getText()));
+        modelProdutos.setValorCompra(Double.parseDouble(this.txtProValorCom.getText()));
+        modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
+        
+        if (controllerProdutos.salvarProdutosController(modelProdutos)>0) {
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+            this.carregarProdutos();
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o produto!");
+        }
+    }//GEN-LAST:event_btnProSaveActionPerformed
+
+    private void btnProDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProDeleteActionPerformed
+        // Exclui um produto no banco
+        int linha = tableProdutos.getSelectedRow();
+        int codigoProduto = (int) tableProdutos.getValueAt(linha, 0);
+        
+        if(controllerProdutos.excluirProdutoController(codigoProduto)){
+            JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!");
+            this.carregarProdutos();
+        }else {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir o produto!");
+        }
+    }//GEN-LAST:event_btnProDeleteActionPerformed
 
     /**
      * @param args the command line arguments
