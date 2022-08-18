@@ -124,7 +124,7 @@ public class DaoProdutos extends ConexaoMysql {
         
         try {
             this.conectar();
-            this.executarSQL("SELECT id, nome,estoque,valor,valor_compra, fornecedor_id FROM produto;");
+            this.executarSQL("SELECT * FROM produto;");
             while (this.getResultSet().next()) {
                 modelProdutos = new ModelProdutos();
                 modelProdutos.setIdProduto(this.getResultSet().getInt(1));
@@ -140,7 +140,7 @@ public class DaoProdutos extends ConexaoMysql {
             e.printStackTrace();
         } finally {
             this.fecharConexao();
-        }
+        } 
         return listaModelProdutos;
     }
 }

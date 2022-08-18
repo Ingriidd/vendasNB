@@ -6,6 +6,7 @@ package br.com.vendasnb.dao;
 
 import br.com.vendasnb.conexoes.ConexaoMysql;
 import br.com.vendasnb.model.ModelCargo;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,12 +23,18 @@ public class DaoCargo extends ConexaoMysql {
     public int salvarCargoDAO(ModelCargo pModelCargo) {
         try {
             this.conectar();
-            return this.insertSQL("INSERT INTO cargo (descricao, salario)"
-                    + "VALUES ("
-                    + "'" + pModelCargo.getDescricao() + "',"
-                    + "'" + pModelCargo.getSalario() + "';)"
+            return this.insertSQL(
+                "INSERT INTO cargo ("
+                    + "id,"
+                    + "descricao,"
+                    + "salario"
+                + ") VALUES ("
+                    + "'" + pModelCargo.getIdCargo()+ "',"
+                    + "'" + pModelCargo.getDescricao()+ "',"
+                    + "'" + pModelCargo.getSalario()+ "'"
+                + ");"
             );
-        } catch (Exception e) {
+        }catch (Exception e) {
             e.printStackTrace();
             return 0;
         } finally {
@@ -62,10 +69,10 @@ public class DaoCargo extends ConexaoMysql {
     public boolean alterarCargoDAO(ModelCargo pModelCargo){
         try {
             this.conectar();
-            return this.executarUpdateDeleteSQL("UPADATE cargo SET "
-                    + "'" + pModelCargo.getDescricao() + "',"
-                    + "'" + pModelCargo.getSalario() + "'"
-                    + " WHERE id= '"+ pModelCargo.getIdCargo() + "';");
+            return this.executarUpdateDeleteSQL("UPDATE cargo SET "
+                    + "descricao ='" + pModelCargo.getDescricao() + "',"
+                    + "salario ='" + pModelCargo.getSalario() + "'"
+                    + " WHERE id= '" + pModelCargo.getIdCargo() + "'");
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -96,6 +103,28 @@ public class DaoCargo extends ConexaoMysql {
             this.fecharConexao();
         }
         return modelCargo;
+    }
+    
+    public ArrayList<ModelCargo> retonarListaCargo(){
+        ArrayList<ModelCargo> listaModelCargo = new ArrayList<>();
+        ModelCargo modelCargo = new ModelCargo();
+        
+        try {
+            this.conectar();
+            this.executarSQL("SELECT * FROM cargo;");
+            while(this.getResultSet().next()){
+                modelCargo = new ModelCargo();
+                modelCargo.setIdCargo(this.getResultSet().getInt(1));
+                modelCargo.setDescricao(this.getResultSet().getString(2));
+                modelCargo.setSalario(this.getResultSet().getDouble(3));
+                listaModelCargo.add(modelCargo);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.fecharConexao();
+        }
+        return listaModelCargo;
     }
     
     

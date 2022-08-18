@@ -101,7 +101,7 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -176,9 +176,9 @@ public class ViewProduto extends javax.swing.JFrame {
 
         txtProCodFor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
-        txtProValorVen.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtProValorVen.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
 
-        txtProValorCom.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
+        txtProValorCom.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
         txtProValorCom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtProValorComActionPerformed(evt);
@@ -446,6 +446,7 @@ public class ViewProduto extends javax.swing.JFrame {
      * @param condicao
      */
     private void limparCampo() {
+        txtProCod.setText("");
         txtProNome.setText("");
         txtProEst.setText("");
         txtProValorCom.setText("");
@@ -458,7 +459,7 @@ public class ViewProduto extends javax.swing.JFrame {
         try {
             modelProdutos.setNome(this.txtProNome.getText());
             modelProdutos.setEstoque(Integer.parseInt(this.txtProEst.getText()));
-            modelProdutos.setValor(formatador.converterVirgulaParaPonto(this.txtProValorVen.getText()));
+            modelProdutos.setValor((formatador.converterVirgulaParaPonto(this.txtProValorVen.getText())));
             modelProdutos.setValorCompra(formatador.converterVirgulaParaPonto(this.txtProValorCom.getText()));
             modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
 
