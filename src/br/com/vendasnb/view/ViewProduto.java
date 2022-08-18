@@ -196,15 +196,15 @@ public class ViewProduto extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
+                                .addGap(22, 22, 22)
                                 .addComponent(btnProCancelar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnProNew)
-                                .addGap(18, 18, 18)
+                                .addGap(32, 32, 32)
                                 .addComponent(btnProAlter)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnProDelete)
+                                .addGap(34, 34, 34)
+                                .addComponent(btnProNew)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnProDelete)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnProSave)
                                 .addGap(26, 26, 26))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -238,7 +238,7 @@ public class ViewProduto extends javax.swing.JFrame {
                                         .addComponent(txtProCodFor, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(0, 0, Short.MAX_VALUE))
                                 .addComponent(txtProNome, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 96, Short.MAX_VALUE)))
+                        .addGap(0, 95, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -278,7 +278,7 @@ public class ViewProduto extends javax.swing.JFrame {
                     .addComponent(btnProAlter)
                     .addComponent(btnProNew)
                     .addComponent(btnProCancelar))
-                .addGap(17, 17, 17))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -305,9 +305,6 @@ public class ViewProduto extends javax.swing.JFrame {
         }else if (salvarAlterar.equals("alterar")){
             this.alterarProduto();
         }
-        
-        
-        
     }//GEN-LAST:event_btnProSaveActionPerformed
 
     private void btnProDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProDeleteActionPerformed
@@ -356,7 +353,6 @@ public class ViewProduto extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado!", "AVISO", JOptionPane.ERROR_MESSAGE);
         }
-
     }//GEN-LAST:event_btnProAlterActionPerformed
 
     private void btnProPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProPesquisaActionPerformed
@@ -455,6 +451,7 @@ public class ViewProduto extends javax.swing.JFrame {
         txtProValorCom.setText("");
         txtProValorVen.setText("");
         txtProCodFor.setText("");
+        txtProPesquisa.setText("");
     }
 
     private void salvarProduto() {
