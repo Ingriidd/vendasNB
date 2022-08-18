@@ -31,7 +31,7 @@ public class ViewFornecedor extends javax.swing.JFrame {
         initComponents();
         this.carregarFornecedores();
         setLocationRelativeTo(null);
-        habilitarDesabilitar(false);
+        this.habilitarDesabilitar(false);
     }
 
     /**
@@ -182,7 +182,7 @@ public class ViewFornecedor extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,11 +221,11 @@ public class ViewFornecedor extends javax.swing.JFrame {
                 .addGap(62, 62, 62)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnForCancelar)
-                    .addComponent(btnForEditar)
+                    .addComponent(btnForEditar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnForNew)
-                    .addComponent(btnForSalvar)
+                    .addComponent(btnForSalvar, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnForDeletar))
                 .addGap(35, 35, 35))
         );
@@ -363,16 +363,28 @@ public class ViewFornecedor extends javax.swing.JFrame {
         }
     }
     
+    /***
+     * Habilita ou desabilita campos
+     * @param condicao 
+     */
+    
     private void habilitarDesabilitar(boolean condicao){
         txtForNome.setEnabled(condicao);
         txtForTel.setEnabled(condicao);
     }
     
+    /***
+     * limpa os campos
+     */
     private void limparCampo() {
         txtForNome.setText("");
         txtForTel.setText("");
         txtForPesquisar.setText("");
     }
+    
+    /***
+     * Salva os fornecedores no banco
+     */
     
     private void salvaFornecedor(){
         try {
@@ -392,6 +404,9 @@ public class ViewFornecedor extends javax.swing.JFrame {
         }
     }
     
+    /***
+     * Altera os fornecedores no banco
+     */
     private void alteraFornecedor(){
         try {
             modelFornecedor.setNome(txtForNome.getText());
