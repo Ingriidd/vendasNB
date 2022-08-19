@@ -154,6 +154,17 @@ public class ViewCargo extends javax.swing.JFrame {
             }
         });
 
+        txtCarSalario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCarSalarioFocusLost(evt);
+            }
+        });
+        txtCarSalario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCarSalarioKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -313,6 +324,16 @@ public class ViewCargo extends javax.swing.JFrame {
         String texto = txtCarPesquisa.getText();
         classificador.setRowFilter(RowFilter.regexFilter(texto,1));  
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtCarSalarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCarSalarioKeyReleased
+
+        
+    }//GEN-LAST:event_txtCarSalarioKeyReleased
+
+    private void txtCarSalarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCarSalarioFocusLost
+        // Conversao de virgula
+        txtCarSalario.setText(String.valueOf(new Formatador().converterVirgulaParaPonto(txtCarSalario.getText()))) ;
+    }//GEN-LAST:event_txtCarSalarioFocusLost
 
     /**
      * @param args the command line arguments
