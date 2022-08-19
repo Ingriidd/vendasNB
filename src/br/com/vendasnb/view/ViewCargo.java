@@ -9,7 +9,11 @@ import br.com.vendasnb.model.ModelCargo;
 import br.com.vendasnb.util.Formatador;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+import javax.swing.text.TableView;
 
 /**
  *
@@ -49,8 +53,7 @@ public class ViewCargo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtCarCodigo = new javax.swing.JTextField();
         txtCarDesc = new javax.swing.JTextField();
-        txtCarSalario = new javax.swing.JFormattedTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtCarPesquisa = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -60,6 +63,7 @@ public class ViewCargo extends javax.swing.JFrame {
         btnCarNew = new javax.swing.JButton();
         btnCarSalvar = new javax.swing.JButton();
         btnCarDeletar = new javax.swing.JButton();
+        txtCarSalario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cargo");
@@ -72,12 +76,15 @@ public class ViewCargo extends javax.swing.JFrame {
 
         txtCarCodigo.setEnabled(false);
 
-        txtCarSalario.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
-
         jLabel4.setText("Pesquisar:");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/pesquisar.png"))); // NOI18N
         jButton1.setToolTipText("Pesquisar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         tableCargo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -171,12 +178,12 @@ public class ViewCargo extends javax.swing.JFrame {
                         .addGap(98, 98, 98)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(txtCarSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCarSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCarPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -211,7 +218,7 @@ public class ViewCargo extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCarPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4))
                     .addComponent(jButton1))
                 .addGap(35, 35, 35)
@@ -296,6 +303,16 @@ public class ViewCargo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro ao excluir o Fornecedor!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCarDeletarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // pesquisar
+        DefaultTableModel modelo = (DefaultTableModel) this.tableCargo.getModel();
+        final TableRowSorter<TableModel> classificador = new TableRowSorter<>(modelo);
+        this.tableCargo.setRowSorter(classificador);
+        
+        String texto = txtCarPesquisa.getText();
+        classificador.setRowFilter(RowFilter.regexFilter(texto,1));  
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -415,10 +432,10 @@ public class ViewCargo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tableCargo;
     private javax.swing.JTextField txtCarCodigo;
     private javax.swing.JTextField txtCarDesc;
-    private javax.swing.JFormattedTextField txtCarSalario;
+    private javax.swing.JTextField txtCarPesquisa;
+    private javax.swing.JTextField txtCarSalario;
     // End of variables declaration//GEN-END:variables
 }

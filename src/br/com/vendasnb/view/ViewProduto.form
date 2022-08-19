@@ -88,16 +88,16 @@
                               </Group>
                               <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtProValorCom" min="-2" pref="90" max="-2" attributes="0"/>
-                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jLabel4" max="32767" attributes="0"/>
+                                          <Component id="txtProValorCom" max="32767" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                          <Component id="txtProValorVen" min="-2" pref="90" max="-2" attributes="0"/>
+                                          <Component id="txtProValorVen" min="-2" pref="83" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtProCodFor" min="-2" pref="90" max="-2" attributes="0"/>
@@ -137,11 +137,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtProEst" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtProValorCom" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtProValorVen" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtProCodFor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtProValorVen" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtProValorCom" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtProPesquisa" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -157,7 +157,7 @@
                       <Component id="btnProNew" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="btnProCancelar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="28" max="32767" attributes="0"/>
+                  <EmptySpace pref="26" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -274,6 +274,9 @@
               <Image iconType="3" name="/br/com/vendasnb/imagens/cancelar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Cancelar"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProCancelarActionPerformed"/>
@@ -285,6 +288,9 @@
               <Image iconType="3" name="/br/com/vendasnb/imagens/novo.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Novo"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProNewActionPerformed"/>
@@ -296,6 +302,9 @@
               <Image iconType="3" name="/br/com/vendasnb/imagens/editar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Alterar"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProAlterActionPerformed"/>
@@ -307,6 +316,9 @@
               <Image iconType="3" name="/br/com/vendasnb/imagens/deletar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Excluir"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProDeleteActionPerformed"/>
@@ -318,6 +330,9 @@
               <Image iconType="3" name="/br/com/vendasnb/imagens/salvar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Salvar"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProSaveActionPerformed"/>
@@ -329,6 +344,9 @@
               <Image iconType="3" name="/br/com/vendasnb/imagens/pesquisar.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Pesquisar"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Hand Cursor"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProPesquisaActionPerformed"/>
@@ -348,22 +366,9 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtProValorVen">
-          <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format format="#,###.00" subtype="-1" type="0"/>
-            </Property>
-          </Properties>
+        <Component class="javax.swing.JTextField" name="txtProValorVen">
         </Component>
-        <Component class="javax.swing.JFormattedTextField" name="txtProValorCom">
-          <Properties>
-            <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-              <Format format="#,###.00" subtype="-1" type="0"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProValorComActionPerformed"/>
-          </Events>
+        <Component class="javax.swing.JTextField" name="txtProValorCom">
         </Component>
       </SubComponents>
     </Container>

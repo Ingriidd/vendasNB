@@ -66,8 +66,8 @@ public class ViewProduto extends javax.swing.JFrame {
         btnProPesquisa = new javax.swing.JButton();
         txtProEst = new javax.swing.JFormattedTextField();
         txtProCodFor = new javax.swing.JFormattedTextField();
-        txtProValorVen = new javax.swing.JFormattedTextField();
-        txtProValorCom = new javax.swing.JFormattedTextField();
+        txtProValorVen = new javax.swing.JTextField();
+        txtProValorCom = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Produtos");
@@ -126,6 +126,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         btnProCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/cancelar.png"))); // NOI18N
         btnProCancelar.setToolTipText("Cancelar");
+        btnProCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProCancelarActionPerformed(evt);
@@ -134,6 +135,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         btnProNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/novo.png"))); // NOI18N
         btnProNew.setToolTipText("Novo");
+        btnProNew.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProNewActionPerformed(evt);
@@ -142,6 +144,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         btnProAlter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/editar.png"))); // NOI18N
         btnProAlter.setToolTipText("Alterar");
+        btnProAlter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProAlter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProAlterActionPerformed(evt);
@@ -150,6 +153,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         btnProDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/deletar.png"))); // NOI18N
         btnProDelete.setToolTipText("Excluir");
+        btnProDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProDeleteActionPerformed(evt);
@@ -158,6 +162,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         btnProSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/salvar.png"))); // NOI18N
         btnProSave.setToolTipText("Salvar");
+        btnProSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProSaveActionPerformed(evt);
@@ -166,6 +171,7 @@ public class ViewProduto extends javax.swing.JFrame {
 
         btnProPesquisa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/pesquisar.png"))); // NOI18N
         btnProPesquisa.setToolTipText("Pesquisar");
+        btnProPesquisa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnProPesquisa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProPesquisaActionPerformed(evt);
@@ -175,15 +181,6 @@ public class ViewProduto extends javax.swing.JFrame {
         txtProEst.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
         txtProCodFor.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-
-        txtProValorVen.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
-
-        txtProValorCom.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,###.00"))));
-        txtProValorCom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProValorComActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -225,14 +222,14 @@ public class ViewProduto extends javax.swing.JFrame {
                                 .addComponent(btnProPesquisa))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtProValorCom, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel4))
-                                    .addGap(60, 60, 60)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtProValorCom))
+                                    .addGap(69, 69, 69)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel5)
-                                        .addComponent(txtProValorVen, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(89, 89, 89)
+                                        .addComponent(txtProValorVen, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(96, 96, 96)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel6)
                                         .addComponent(txtProCodFor, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -261,10 +258,10 @@ public class ViewProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProEst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProValorCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProCodFor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtProValorVen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProCodFor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                    .addComponent(txtProValorCom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtProPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
@@ -278,7 +275,7 @@ public class ViewProduto extends javax.swing.JFrame {
                     .addComponent(btnProAlter)
                     .addComponent(btnProNew)
                     .addComponent(btnProCancelar))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -364,10 +361,6 @@ public class ViewProduto extends javax.swing.JFrame {
         String texto = txtProPesquisa.getText();
         classificador.setRowFilter(RowFilter.regexFilter(texto, 1));
     }//GEN-LAST:event_btnProPesquisaActionPerformed
-
-    private void txtProValorComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProValorComActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProValorComActionPerformed
 
     /**
      * @param args the command line arguments
@@ -480,9 +473,9 @@ public class ViewProduto extends javax.swing.JFrame {
         try {
             modelProdutos.setNome(this.txtProNome.getText());
             modelProdutos.setEstoque(Integer.parseInt(this.txtProEst.getText()));
-            modelProdutos.setValor(formatador.converterVirgulaParaPonto(this.txtProValorVen.getText()));
+            modelProdutos.setValor(formatador.converterVirgulaParaPonto(this.txtProValorCom.getText()));
             modelProdutos.setValorCompra(formatador.converterVirgulaParaPonto(this.txtProValorCom.getText()));
-            modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
+            modelProdutos.setFornecedor(Integer.parseInt(this.txtProValorCom.getText()));
 
             if (controllerProdutos.alterarProdutoController(modelProdutos)) {
                 JOptionPane.showMessageDialog(this, "Produto alterado com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
@@ -519,7 +512,7 @@ public class ViewProduto extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtProEst;
     private javax.swing.JTextField txtProNome;
     private javax.swing.JTextField txtProPesquisa;
-    private javax.swing.JFormattedTextField txtProValorCom;
-    private javax.swing.JFormattedTextField txtProValorVen;
+    private javax.swing.JTextField txtProValorCom;
+    private javax.swing.JTextField txtProValorVen;
     // End of variables declaration//GEN-END:variables
 }

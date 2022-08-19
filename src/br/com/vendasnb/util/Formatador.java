@@ -11,7 +11,7 @@ package br.com.vendasnb.util;
 public class Formatador {
     
     public Double converterVirgulaParaPonto(String pString){
-        String retorno = new String();
+        String retorno = "";
         int tamanhoString = pString.length();
         for(int i=0; i < tamanhoString; i++){
             if (pString.charAt(i)== ',') {
