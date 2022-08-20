@@ -4,17 +4,30 @@
  */
 package br.com.vendasnb.view;
 
+import br.com.vendasnb.controller.ControllerUsuario;
+import br.com.vendasnb.model.ModelUsuario;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nicolas
  */
 public class ViewUsuario extends javax.swing.JFrame {
+    ControllerUsuario controllerUsuario = new ControllerUsuario();
+    ModelUsuario modelUsuario = new ModelUsuario();
+    ArrayList<ModelUsuario> listaModelUsuario = new ArrayList<>();
+    String salvarAlterar;
 
     /**
      * Creates new form ViewUsuario
      */
     public ViewUsuario() {
         initComponents();
+        setLocationRelativeTo(null);
+        this.carregarUsuarios();
+        this.habilitarDesabilitarCampos(false);
     }
 
     /**
@@ -42,9 +55,9 @@ public class ViewUsuario extends javax.swing.JFrame {
         txtUsulogin = new javax.swing.JTextField();
         txtUsuSenha = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableUsuario = new javax.swing.JTable();
         btnUsuCancelar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnUsuEditar = new javax.swing.JButton();
         btnUsuNew = new javax.swing.JButton();
         btnUsuDeletar = new javax.swing.JButton();
         btnUsuSalvar = new javax.swing.JButton();
@@ -69,41 +82,88 @@ public class ViewUsuario extends javax.swing.JFrame {
 
         jLabel7.setText("Telefone:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        txtUsuCodigo.setEnabled(false);
+
+        tableUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Código", "Nome", "CPF", "Telefone", "Login", "Senha", "Cargo"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tableUsuario);
 
         btnUsuCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/cancelar.png"))); // NOI18N
         btnUsuCancelar.setToolTipText("Cancelar");
         btnUsuCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuCancelarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/editar.png"))); // NOI18N
-        jButton2.setToolTipText("Editar");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/editar.png"))); // NOI18N
+        btnUsuEditar.setToolTipText("Editar");
+        btnUsuEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuEditarActionPerformed(evt);
+            }
+        });
 
         btnUsuNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/novo.png"))); // NOI18N
         btnUsuNew.setToolTipText("Novo");
+        btnUsuNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuNewActionPerformed(evt);
+            }
+        });
 
         btnUsuDeletar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/deletar.png"))); // NOI18N
         btnUsuDeletar.setToolTipText("Deletar");
         btnUsuDeletar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuDeletarActionPerformed(evt);
+            }
+        });
 
         btnUsuSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/salvar.png"))); // NOI18N
         btnUsuSalvar.setToolTipText("Salvar");
         btnUsuSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuSalvarActionPerformed(evt);
+            }
+        });
 
         btnUsuPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/pesquisar.png"))); // NOI18N
         btnUsuPesquisar.setToolTipText("Pesquisar");
         btnUsuPesquisar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnUsuPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuPesquisarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Pesquisar:");
 
@@ -129,8 +189,24 @@ public class ViewUsuario extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(txtUsuNome))
                         .addGap(106, 106, 106))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtUsulogin, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addGap(71, 71, 71)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txtUsuSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtUsuPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnUsuPesquisar)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
@@ -142,35 +218,15 @@ public class ViewUsuario extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel6))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txtUsuTel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(360, 360, 360))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(txtUsuTel, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(360, 360, 360)
                                 .addComponent(txtUsuCodCar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(261, 261, 261))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtUsuPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnUsuPesquisar))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtUsulogin, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(71, 71, 71)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtUsuSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(261, 261, 261))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(btnUsuCancelar)
                 .addGap(32, 32, 32)
-                .addComponent(jButton2)
+                .addComponent(btnUsuEditar)
                 .addGap(30, 30, 30)
                 .addComponent(btnUsuNew)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -201,30 +257,29 @@ public class ViewUsuario extends javax.swing.JFrame {
                     .addComponent(txtUsuCodCar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUsuCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUsuTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUsulogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsuSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtUsulogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsuSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(txtUsuPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(txtUsuPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnUsuPesquisar))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUsuCancelar)
-                    .addComponent(jButton2)
-                    .addComponent(btnUsuNew)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUsuEditar)
+                    .addComponent(btnUsuNew, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnUsuDeletar)
-                    .addComponent(btnUsuSalvar))
+                    .addComponent(btnUsuSalvar)
+                    .addComponent(btnUsuCancelar))
                 .addGap(41, 41, 41))
         );
 
@@ -237,12 +292,76 @@ public class ViewUsuario extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnUsuCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuCancelarActionPerformed
+        // Limpar campos e desabilitar-los
+        this.limparCampo();
+        this.habilitarDesabilitarCampos(false);
+    }//GEN-LAST:event_btnUsuCancelarActionPerformed
+
+    private void btnUsuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuNewActionPerformed
+        // habilitar campos
+        salvarAlterar = "salvar";
+        this.habilitarDesabilitarCampos(true);
+    }//GEN-LAST:event_btnUsuNewActionPerformed
+
+    private void btnUsuEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuEditarActionPerformed
+        // TODO add your handling code here:
+        salvarAlterar = "alterar";
+        this.habilitarDesabilitarCampos(true);
+        int linha = tableUsuario.getSelectedRow();
+        
+        try {
+            int codigoUsuario = (int) tableUsuario.getValueAt(linha, 0);
+            // recuperar os dados do banco
+            modelUsuario = controllerUsuario.getUsuarioController(codigoUsuario);
+            // setar interface
+            this.txtUsuCodigo.setText(String.valueOf(modelUsuario.getIdUsuario()));
+            this.txtUsuCpf.setText(String.valueOf(modelUsuario.getCpf()));
+            this.txtUsuNome.setText(String.valueOf(modelUsuario.getNomeUsuario()));
+            this.txtUsuTel.setText(String.valueOf(modelUsuario.getTelefone()));
+            this.txtUsuSenha.setText(String.valueOf(modelUsuario.getSenha()));
+            this.txtUsuCodCar.setText(String.valueOf(modelUsuario.getCargoId()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Código inválido ou nenhum registro selecionado!", "AVISO", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btnUsuEditarActionPerformed
+
+    private void btnUsuSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuSalvarActionPerformed
+        // TODO add your handling code here:
+        if (salvarAlterar.equals("salvar")) {
+            this.salvarUsuarios();
+        } else {
+            this.alterarUsuarios();
+        }
+    }//GEN-LAST:event_btnUsuSalvarActionPerformed
+
+    private void btnUsuDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuDeletarActionPerformed
+        // Deletar usuario selecionado
+        int linha = tableUsuario.getSelectedRow();
+        int codigoUsuario = (int) tableUsuario.getValueAt(linha, 0);
+
+        if (controllerUsuario.excluirUsuarioController(codigoUsuario)) {
+            JOptionPane.showMessageDialog(this, "Usuario excluído com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            this.carregarUsuarios();
+            this.habilitarDesabilitarCampos(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao excluir o usuario!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnUsuDeletarActionPerformed
+
+    private void btnUsuPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuPesquisarActionPerformed
+        // Pesquisar
+        
+    }//GEN-LAST:event_btnUsuPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,14 +397,106 @@ public class ViewUsuario extends javax.swing.JFrame {
             }
         });
     }
+     /****
+      * carregar os usuarios no banco e exibir na tabela
+      */
+    public void carregarUsuarios(){
+        listaModelUsuario = controllerUsuario.getListaUsuarioController();
+        DefaultTableModel modelo = (DefaultTableModel) this.tableUsuario.getModel();
+        modelo.setNumRows(0);
+        for(int i=0; i < listaModelUsuario.size(); i++){
+            modelo.addRow(new Object[]{
+            listaModelUsuario.get(i).getIdUsuario(),
+            listaModelUsuario.get(i).getNomeUsuario(),
+            listaModelUsuario.get(i).getCpf(),
+            listaModelUsuario.get(i).getTelefone(),
+            listaModelUsuario.get(i).getLogin(),
+            listaModelUsuario.get(i).getSenha(),
+            listaModelUsuario.get(i).getCargoId()
+            
+        });
+        }
+    }
+    
+    /***
+     * salvar os usuarios no banco
+     */
+    
+    public void salvarUsuarios(){
+        try {
+            modelUsuario.setNomeUsuario(txtUsuNome.getText());
+            modelUsuario.setCpf(txtUsuCpf.getText());
+            modelUsuario.setTelefone(txtUsuTel.getText());
+            modelUsuario.setLogin(txtUsulogin.getText());
+            modelUsuario.setSenha(txtUsuSenha.getText());
+            modelUsuario.setCargoId(Integer.parseInt(txtUsuCodCar.getText()));
+            
+            if(controllerUsuario.salvarUsuarioController(modelUsuario) > 0){
+                JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                this.carregarUsuarios();
+                this.limparCampo();
+                habilitarDesabilitarCampos(false);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar o usuario!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void alterarUsuarios(){
+        try{
+            modelUsuario.setNomeUsuario(txtUsuNome.getText());
+            modelUsuario.setCpf(txtUsuCpf.getText());
+            modelUsuario.setTelefone(txtUsuTel.getText());
+            modelUsuario.setLogin(txtUsulogin.getText());
+            modelUsuario.setSenha(txtUsuSenha.getText());
+            modelUsuario.setCargoId(Integer.parseInt(txtUsuCodCar.getText()));
+            
+            if(controllerUsuario.atualizarUsuarioController(modelUsuario)){
+                JOptionPane.showMessageDialog(this, "Usuário alterado com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                this.carregarUsuarios();
+                this.limparCampo();
+                habilitarDesabilitarCampos(false);
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Erro ao altertar o usuario!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    /****
+     * Habilitar ou desabilitar os campos
+     * @param c 
+     */
+    
+    public void habilitarDesabilitarCampos(boolean c){
+        txtUsuNome.setEnabled(c);
+        txtUsuCpf.setEnabled(c);
+        txtUsuTel.setEnabled(c);
+        txtUsulogin.setEnabled(c);
+        txtUsuSenha.setEnabled(c);
+        txtUsuCodCar.setEnabled(c);
+    }
+    
+    /***
+     * Limpar os campos
+     */
+    
+    public void limparCampo(){
+        txtUsuCodigo.setText("");
+        txtUsuNome.setText("");
+        txtUsuCpf.setText("");
+        txtUsuTel.setText("");
+        txtUsulogin.setText("");
+        txtUsuSenha.setText("");
+        txtUsuCodCar.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnUsuCancelar;
     private javax.swing.JButton btnUsuDeletar;
+    private javax.swing.JButton btnUsuEditar;
     private javax.swing.JButton btnUsuNew;
     private javax.swing.JButton btnUsuPesquisar;
     private javax.swing.JButton btnUsuSalvar;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -296,7 +507,7 @@ public class ViewUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableUsuario;
     private javax.swing.JTextField txtUsuCodCar;
     private javax.swing.JTextField txtUsuCodigo;
     private javax.swing.JTextField txtUsuCpf;
