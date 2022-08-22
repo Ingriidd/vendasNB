@@ -56,4 +56,13 @@ public class ControllerUsuario {
     public boolean excluirUsuarioController(int pIdUsuario){
         return this.daoUsuario.excluirUsuarioDAO(pIdUsuario);
     }
+
+    /***
+     * Validar login e senha
+     * @param pModelUsuario
+     * @return 
+     */
+    public boolean getValidarUsuarioController(ModelUsuario pModelUsuario) {
+        return this.daoUsuario.getValidarUsuarioDao(pModelUsuario);
+    }
 }
