@@ -8,7 +8,10 @@ import br.com.vendasnb.controller.ControllerUsuario;
 import br.com.vendasnb.model.ModelUsuario;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -67,6 +70,7 @@ public class ViewUsuario extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Usuario");
+        setResizable(false);
 
         jLabel1.setText("Codigo:");
 
@@ -271,9 +275,9 @@ public class ViewUsuario extends javax.swing.JFrame {
                         .addComponent(jLabel8)
                         .addComponent(txtUsuPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnUsuPesquisar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUsuEditar)
                     .addComponent(btnUsuNew, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -360,6 +364,12 @@ public class ViewUsuario extends javax.swing.JFrame {
 
     private void btnUsuPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuPesquisarActionPerformed
         // Pesquisar
+        DefaultTableModel modelo = (DefaultTableModel) this.tableUsuario.getModel();
+        final TableRowSorter<TableModel> classificador = new TableRowSorter<>(modelo);
+        this.tableUsuario.setRowSorter(classificador);
+        
+        String texto = txtUsuPesquisar.getText();
+        classificador.setRowFilter(RowFilter.regexFilter(texto, 1));
         
     }//GEN-LAST:event_btnUsuPesquisarActionPerformed
 
