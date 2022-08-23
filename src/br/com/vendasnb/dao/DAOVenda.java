@@ -116,7 +116,7 @@ public class DAOVenda extends ConexaoMysql {
     
     /***
      * Retorna uma lista de venda
-     * @return 
+     * @return listaModelVenda
      */
     public ArrayList<ModelVenda> retornaListaVendas(){
         ModelVenda modelVenda = new ModelVenda();

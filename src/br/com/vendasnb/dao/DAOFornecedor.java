@@ -84,8 +84,8 @@ public class DAOFornecedor extends ConexaoMysql {
                     + "id,"
                     + "nome,"
                     + "fone"
-                 + " FROM"
-                     + " fornecedor"
+                    + " FROM"
+                    + " fornecedor"
                 + ";"
             );
 

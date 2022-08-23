@@ -44,7 +44,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         setTitle("NB TechSoft - Sistema de Vendas");
         setResizable(false);
 
-        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Nicolas\\Documents\\NetBeansProjects\\VendasNB\\src\\br\\com\\vendasnb\\imagens\\fundo.jpg"));
+        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Nicolas\\Documents\\NetBeansProjects\\VendasNB\\src\\br\\com\\vendasnb\\imagens\\background.png"));
 
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);
