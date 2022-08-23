@@ -6,9 +6,12 @@ package br.com.vendasnb.view;
 
 import br.com.vendasnb.controller.ControllerProdutos;
 import br.com.vendasnb.controller.ControllerUsuario;
+import br.com.vendasnb.controller.ControllerVendasUsuario;
 import br.com.vendasnb.model.ModelProdutos;
 import br.com.vendasnb.model.ModelUsuario;
+import br.com.vendasnb.model.ModelVendasUsuario;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,6 +27,9 @@ public class ViewVendas extends javax.swing.JFrame {
     ModelProdutos modelProdutos = new ModelProdutos();
     ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();    
     
+    ArrayList<ModelVendasUsuario> listaModelVendasUsuario = new ArrayList<>();
+    ControllerVendasUsuario controllerVendasUsuario = new ControllerVendasUsuario();
+    
     /**
      * Creates new form ViewVendas
      */
@@ -31,6 +37,7 @@ public class ViewVendas extends javax.swing.JFrame {
         initComponents();
         this.listarUsuario();
         this.listarProdutos();
+        this.carregarVendas();
         setLocationRelativeTo(null);
     }
 
@@ -458,6 +465,19 @@ public class ViewVendas extends javax.swing.JFrame {
         for(int i=0; i < listaModelProdutos.size(); i++) {
             txtVenNomePro.addItem(listaModelProdutos.get(i).getNome());
         }
+    }
+    
+    private void carregarVendas(){
+        DefaultTableModel modelo = (DefaultTableModel) tableVendas.getModel();
+        listaModelVendasUsuario = controllerVendasUsuario.getListaVendasUsuarioController();
+        for(int i=0; i < listaModelVendasUsuario.size(); i++){
+            modelo.addRow(new Object[]{
+                listaModelVendasUsuario.get(i).getModelVenda().getIdVenda(),
+                listaModelVendasUsuario.get(i).getModelUsuario().getNomeUsuario(),
+                listaModelVendasUsuario.get(i).getModelVenda().getDataVenda()       
+            });
+        }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

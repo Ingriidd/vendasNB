@@ -128,8 +128,9 @@ public class DAOVenda extends ConexaoMysql {
                 modelVenda.setIdVenda(this.getResultSet().getInt(1));
                 modelVenda.setDataVenda(this.getResultSet().getDate(2));
                 modelVenda.setValorLiquido(this.getResultSet().getDouble(3));
-                modelVenda.setDesconto(this.getResultSet().getDouble(4));
-                modelVenda.setUsuarioId(this.getResultSet().getInt(5));
+                modelVenda.setValorBruto(this.getResultSet().getDouble(4));
+                modelVenda.setDesconto(this.getResultSet().getDouble(5));
+                modelVenda.setUsuarioId(this.getResultSet().getInt(6));
                 listaModelVenda.add(modelVenda);
             }   
         } catch (Exception e) {
