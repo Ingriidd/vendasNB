@@ -113,6 +113,34 @@ public class DaoProdutos extends ConexaoMysql {
         return modelProdutos;
     }
     
+    /**
+     * Retornar um produto pelo codigo
+     * @param pNomeProduto
+     * @return ModelProdutos
+     */ 
+    public ModelProdutos retornarProdutoDAO(String pNomeProduto){
+        ModelProdutos modelProdutos = new ModelProdutos();
+        try {
+            this.conectar();
+            this.executarSQL("SELECT id, nome,estoque,valor,valor_compra, fornecedor_id FROM produto WHERE nome = '" + pNomeProduto + "';");
+            while (this.getResultSet().next()) {                
+                modelProdutos.setIdProduto(this.getResultSet().getInt(1));
+                modelProdutos.setNome(this.getResultSet().getString(2));
+                modelProdutos.setEstoque(this.getResultSet().getInt(3));
+                modelProdutos.setValor(this.getResultSet().getDouble(4));
+                modelProdutos.setValorCompra(this.getResultSet().getDouble(5));
+                modelProdutos.setFornecedor(this.getResultSet().getInt(6));
+                
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.fecharConexao();
+        }
+        return modelProdutos;
+    }
+    
     /***
      * Retornar uma lista de completa produtos
      * @return listaModelProdutos
