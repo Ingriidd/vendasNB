@@ -295,6 +295,9 @@
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Novo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVenNovoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnVendaSave">
               <Properties>
@@ -303,6 +306,9 @@
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Salvar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVendaSaveActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
@@ -335,8 +341,16 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtVenDesconto">
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtVenDescontoFocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtVenDescontoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="txtVenValorTotal">
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtVenValorTotalFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtVenValorTotalFocusLost"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

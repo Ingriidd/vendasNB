@@ -7,10 +7,14 @@ package br.com.vendasnb.view;
 import br.com.vendasnb.controller.ControllerProdutos;
 import br.com.vendasnb.controller.ControllerUsuario;
 import br.com.vendasnb.controller.ControllerVenda;
+import br.com.vendasnb.controller.ControllerVendasProdutos;
 import br.com.vendasnb.controller.ControllerVendasUsuario;
 import br.com.vendasnb.model.ModelProdutos;
 import br.com.vendasnb.model.ModelUsuario;
+import br.com.vendasnb.model.ModelVenda;
+import br.com.vendasnb.model.ModelVendasProdutos;
 import br.com.vendasnb.model.ModelVendasUsuario;
+import br.com.vendasnb.util.Datas;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -33,6 +37,13 @@ public class ViewVendas extends javax.swing.JFrame {
     ControllerVendasUsuario controllerVendasUsuario = new ControllerVendasUsuario();
     
     ControllerVenda controllerVenda = new ControllerVenda();
+    ModelVenda modelVenda = new ModelVenda();
+    
+    Datas datas = new Datas();
+    
+    ControllerVendasProdutos controllerVendasProdutos = new ControllerVendasProdutos();
+    ModelVendasProdutos modelVendaProdutos = new ModelVendasProdutos();
+    ArrayList<ModelVendasProdutos> listaModelVendasProdutos = new ArrayList<>();
     
     /**
      * Creates new form ViewVendas
@@ -43,6 +54,8 @@ public class ViewVendas extends javax.swing.JFrame {
         this.listarProdutos();
         this.carregarVendas();
         setLocationRelativeTo(null);
+        this.preencherComboBoxProduto();
+        this.preencherComboBoxUsuario();
     }
 
     /**
@@ -161,9 +174,19 @@ public class ViewVendas extends javax.swing.JFrame {
 
         btnVenNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/novo.png"))); // NOI18N
         btnVenNovo.setToolTipText("Novo");
+        btnVenNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenNovoActionPerformed(evt);
+            }
+        });
 
         btnVendaSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/salvar.png"))); // NOI18N
         btnVendaSave.setToolTipText("Salvar");
+        btnVendaSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVendaSaveActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Desconto:");
 
@@ -186,6 +209,26 @@ public class ViewVendas extends javax.swing.JFrame {
         txtVenCodPro.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtVenCodProFocusLost(evt);
+            }
+        });
+
+        txtVenDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtVenDescontoFocusLost(evt);
+            }
+        });
+        txtVenDesconto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtVenDescontoActionPerformed(evt);
+            }
+        });
+
+        txtVenValorTotal.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtVenValorTotalFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtVenValorTotalFocusLost(evt);
             }
         });
 
@@ -411,19 +454,14 @@ public class ViewVendas extends javax.swing.JFrame {
     private void txtVenNomeUsuPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txtVenNomeUsuPopupMenuWillBecomeInvisible
         // TODO add your handling code here:
         if (txtVenNomeUsu.isPopupVisible()) {
-            modelUsuario = controllerUsuario.getUsuarioController(txtVenNomeUsu.getSelectedItem().toString());
-            txtVenCodUsu.setText(String.valueOf(modelUsuario.getIdUsuario()));
-        } else {
+            this.preencherComboBoxUsuario();
         }
     }//GEN-LAST:event_txtVenNomeUsuPopupMenuWillBecomeInvisible
 
     private void txtVenNomeProPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txtVenNomeProPopupMenuWillBecomeInvisible
         // TODO add your handling code here:
         if(txtVenNomePro.isPopupVisible()){
-            modelProdutos = controllerProdutos.retornaProdutoController(txtVenNomePro.getSelectedItem().toString());
-            txtVenCodPro.setText(String.valueOf(modelProdutos.getIdProduto()));
-        }else{
-            
+            this.preencherComboBoxProduto();
         }
     }//GEN-LAST:event_txtVenNomeProPopupMenuWillBecomeInvisible
 
@@ -433,7 +471,7 @@ public class ViewVendas extends javax.swing.JFrame {
         int codigoVenda = (int)  tableVendas.getValueAt(linha, 0);
         
         if(this.controllerVenda.excluiiVendaController(codigoVenda)){
-            JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Venda excluído com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
             this.carregarVendas();
         }else{
             JOptionPane.showMessageDialog(this, "Erro ao excluir a venda!", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -461,8 +499,73 @@ public class ViewVendas extends javax.swing.JFrame {
                modelProdutos.getValor(),
                quantidade * modelProdutos.getValor()
            });
+           this.somarTotalProdutos();
         }
     }//GEN-LAST:event_bntVendaAddActionPerformed
+
+    private void txtVenDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenDescontoFocusLost
+        // TODO add your handling code here:
+        this.somarTotalProdutos();
+    }//GEN-LAST:event_txtVenDescontoFocusLost
+
+    private void txtVenValorTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenValorTotalFocusLost
+        // TODO add your handling code here:
+        this.somarTotalProdutos();
+    }//GEN-LAST:event_txtVenValorTotalFocusLost
+
+    private void btnVenNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenNovoActionPerformed
+        // TODO add your handling code here:
+        this.limparForm();
+    }//GEN-LAST:event_btnVenNovoActionPerformed
+
+    private void txtVenValorTotalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenValorTotalFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtVenValorTotalFocusGained
+
+    private void btnVendaSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaSaveActionPerformed
+        // Salvar as vendas
+        modelVenda.setUsuarioId(Integer.parseInt(txtVenCodUsu.getText()));
+        int codigoVenda = 0;
+        listaModelVendasProdutos = new ArrayList<>();
+        try {
+            modelVenda.setDataVenda(datas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));  
+        } catch (Exception e) {
+        }
+        modelVenda.setValorLiquido(Double.parseDouble(txtVenValorTotal.getText()));
+        modelVenda.setValorBruto(Double.parseDouble(txtVenValorTotal.getText()) + Double.parseDouble(txtVenDesconto.getText()));
+        modelVenda.setDesconto(Double.parseDouble(txtVenDesconto.getText()));
+        
+        //salvar codigo da venda
+        codigoVenda = controllerVenda.salvarVendaController(modelVenda);
+        if(codigoVenda > 0){
+            JOptionPane.showMessageDialog(this, "Venda salva com sucesso","Atenção",JOptionPane.WARNING_MESSAGE);
+
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro ao salvar venda","Erro",JOptionPane.ERROR_MESSAGE);
+        }
+        
+        int cont = tableVendasProdutos.getRowCount();
+        for (int i = 0; i < cont; i++) {
+            modelVendaProdutos = new ModelVendasProdutos();
+            modelVendaProdutos.setProdutoId((int) tableVendasProdutos.getValueAt(i, 0));
+            modelVendaProdutos.setVendaId(codigoVenda);
+            modelVendaProdutos.setValorUnitario((Double) tableVendasProdutos.getValueAt(i,3));
+            modelVendaProdutos.setQuantidade(Integer.parseInt(tableVendasProdutos.getValueAt(i,2).toString()) );
+            listaModelVendasProdutos.add(modelVendaProdutos);
+        } 
+        // salvar os produtos da venda
+        if(controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutos)){
+            JOptionPane.showMessageDialog(this, "Produtos da venda salva com sucesso","Atenção",JOptionPane.WARNING_MESSAGE);
+            this.carregarVendas();
+            this.limparForm();
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro ao salvar produtos","Erro",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVendaSaveActionPerformed
+
+    private void txtVenDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVenDescontoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtVenDescontoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -535,7 +638,53 @@ public class ViewVendas extends javax.swing.JFrame {
         }
         
     }
+    
+    /***
+     * Soma todos os produtos da venda
+     */
+    private void somarTotalProdutos(){
+        double soma = 0, valor;
+        int cont = tableVendasProdutos.getRowCount();
+        for(int i=0; i< cont; i++){
+            valor = (double) tableVendasProdutos.getValueAt(i, 4);
+            soma = soma + valor;
+        }
+        txtVenValorTotal.setText(String.valueOf(soma));
+        this.aplicaDesconto();
+    }
+    
+    /**
+     * Aplica Desconto ao valor final da venda
+     */
+    
+    private void aplicaDesconto(){
+        try {
+            txtVenValorTotal.setText(String.valueOf(
+            Double.parseDouble(txtVenValorTotal.getText()) - Double.parseDouble(txtVenDesconto.getText())));
+        } catch (NumberFormatException e) {
+        }    
+    }
+       
+    /***
+     * preenche combo box
+     */
+    private void preencherComboBoxUsuario(){
+        modelUsuario = controllerUsuario.getUsuarioController(txtVenNomeUsu.getSelectedItem().toString());
+        txtVenCodUsu.setText(String.valueOf(modelUsuario.getIdUsuario()));
+    }
+    
+    private void preencherComboBoxProduto(){
+        modelProdutos = controllerProdutos.retornaProdutoController(txtVenNomePro.getSelectedItem().toString());
+        txtVenCodPro.setText(String.valueOf(modelProdutos.getIdProduto()));
+    }
 
+    private void limparForm(){
+        txtVenQtdPro.setText("");
+        txtVenDesconto.setText("");
+        txtVenValorTotal.setText("");
+        DefaultTableModel modelo = (DefaultTableModel) tableVendasProdutos.getModel();
+        modelo.setNumRows(0);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntVendaAdd;
     private javax.swing.JButton btnVenCancelar;
