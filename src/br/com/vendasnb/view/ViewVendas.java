@@ -126,10 +126,7 @@ public class ViewVendas extends javax.swing.JFrame {
 
         tableVendasProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Cód. Prod.", "Nome Produto", "Quant.", "Valor Uni.", "Valor Total"
@@ -448,7 +445,22 @@ public class ViewVendas extends javax.swing.JFrame {
         if(txtVenQtdPro.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Você deve preencher todos os campos","Atenção", JOptionPane.WARNING_MESSAGE);
         }else{
-            controllerProdutos.retornaProdutoController(Integer.parseInt(txtVenCodPro.getText()));
+           modelProdutos = controllerProdutos.retornaProdutoController(Integer.parseInt(txtVenCodPro.getText()));
+           //adicionar linha na tabela
+           DefaultTableModel modelo = (DefaultTableModel) tableVendasProdutos.getModel();
+           int cont = 0;
+           double quantidade = 0;
+           quantidade = Double.parseDouble(txtVenQtdPro.getText());
+           for(int i=0; i < cont; i++){
+               modelo.setNumRows(0);
+           }
+           modelo.addRow(new Object[] {
+               modelProdutos.getIdProduto(),
+               modelProdutos.getNome(),
+               txtVenQtdPro.getText(),
+               modelProdutos.getValor(),
+               quantidade * modelProdutos.getValor()
+           });
         }
     }//GEN-LAST:event_bntVendaAddActionPerformed
 
