@@ -30,6 +30,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         uJPanelImagem1 = new componentes.UJPanelImagem();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuSair = new javax.swing.JMenuItem();
@@ -46,15 +47,23 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
         uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Nicolas\\Documents\\NetBeansProjects\\VendasNB\\src\\br\\com\\vendasnb\\imagens\\background.png"));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/NBtech-sem.png"))); // NOI18N
+
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);
         uJPanelImagem1Layout.setHorizontalGroup(
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 879, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, uJPanelImagem1Layout.createSequentialGroup()
+                .addContainerGap(550, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52))
         );
         uJPanelImagem1Layout.setVerticalGroup(
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 602, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, uJPanelImagem1Layout.createSequentialGroup()
+                .addContainerGap(455, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
 
         jMenu1.setText("Arquivos");
@@ -192,6 +201,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuUsu;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

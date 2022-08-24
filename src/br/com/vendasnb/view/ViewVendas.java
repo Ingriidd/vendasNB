@@ -6,11 +6,13 @@ package br.com.vendasnb.view;
 
 import br.com.vendasnb.controller.ControllerProdutos;
 import br.com.vendasnb.controller.ControllerUsuario;
+import br.com.vendasnb.controller.ControllerVenda;
 import br.com.vendasnb.controller.ControllerVendasUsuario;
 import br.com.vendasnb.model.ModelProdutos;
 import br.com.vendasnb.model.ModelUsuario;
 import br.com.vendasnb.model.ModelVendasUsuario;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,6 +31,8 @@ public class ViewVendas extends javax.swing.JFrame {
     
     ArrayList<ModelVendasUsuario> listaModelVendasUsuario = new ArrayList<>();
     ControllerVendasUsuario controllerVendasUsuario = new ControllerVendasUsuario();
+    
+    ControllerVenda controllerVenda = new ControllerVenda();
     
     /**
      * Creates new form ViewVendas
@@ -114,6 +118,11 @@ public class ViewVendas extends javax.swing.JFrame {
         bntVendaAdd.setBackground(new java.awt.Color(153, 255, 204));
         bntVendaAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/adicionar.png"))); // NOI18N
         bntVendaAdd.setToolTipText("Adicionar");
+        bntVendaAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntVendaAddActionPerformed(evt);
+            }
+        });
 
         tableVendasProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -266,8 +275,8 @@ public class ViewVendas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -308,6 +317,11 @@ public class ViewVendas extends javax.swing.JFrame {
 
         btnVenExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/deletar.png"))); // NOI18N
         btnVenExcluir.setToolTipText("Excluir");
+        btnVenExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenExcluirActionPerformed(evt);
+            }
+        });
 
         btnVenEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/editar.png"))); // NOI18N
         btnVenEditar.setToolTipText("Alterar");
@@ -379,14 +393,22 @@ public class ViewVendas extends javax.swing.JFrame {
 
     private void txtVenCodUsuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenCodUsuFocusLost
         // TODO add your handling code here:
-        modelUsuario = controllerUsuario.getUsuarioController(Integer.parseInt(txtVenCodUsu.getText()));
-        txtVenNomeUsu.setSelectedItem(modelUsuario.getNomeUsuario());
+        if(txtVenCodUsu.getText().equals("")){
+           txtVenCodUsu.setText("1"); 
+        }else{
+         modelUsuario = controllerUsuario.getUsuarioController(Integer.parseInt(txtVenCodUsu.getText()));
+         txtVenNomeUsu.setSelectedItem(modelUsuario.getNomeUsuario());
+        }
     }//GEN-LAST:event_txtVenCodUsuFocusLost
 
     private void txtVenCodProFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenCodProFocusLost
         // TODO add your handling code here:
-        modelProdutos = controllerProdutos.retornaProdutoController(Integer.parseInt(txtVenCodPro.getText()));
-        txtVenNomePro.setSelectedItem(modelProdutos.getNome());
+        if (txtVenCodPro.getText().equals("")) {
+            txtVenCodPro.setText("1");
+        } else {
+            modelProdutos = controllerProdutos.retornaProdutoController(Integer.parseInt(txtVenCodPro.getText()));
+            txtVenNomePro.setSelectedItem(modelProdutos.getNome());
+        }
     }//GEN-LAST:event_txtVenCodProFocusLost
 
     private void txtVenNomeUsuPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txtVenNomeUsuPopupMenuWillBecomeInvisible
@@ -407,6 +429,28 @@ public class ViewVendas extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_txtVenNomeProPopupMenuWillBecomeInvisible
+
+    private void btnVenExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenExcluirActionPerformed
+        // Excluir venda:
+        int linha = tableVendas.getSelectedRow();
+        int codigoVenda = (int)  tableVendas.getValueAt(linha, 0);
+        
+        if(this.controllerVenda.excluiiVendaController(codigoVenda)){
+            JOptionPane.showMessageDialog(this, "Produto excluído com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            this.carregarVendas();
+        }else{
+            JOptionPane.showMessageDialog(this, "Erro ao excluir a venda!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVenExcluirActionPerformed
+
+    private void bntVendaAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntVendaAddActionPerformed
+        // Botao adicionar 
+        if(txtVenQtdPro.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Você deve preencher todos os campos","Atenção", JOptionPane.WARNING_MESSAGE);
+        }else{
+            controllerProdutos.retornaProdutoController(Integer.parseInt(txtVenCodPro.getText()));
+        }
+    }//GEN-LAST:event_bntVendaAddActionPerformed
 
     /**
      * @param args the command line arguments

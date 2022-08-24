@@ -2,13 +2,14 @@ package br.com.vendasnb.dao;
 
 import br.com.vendasnb.model.ModelUsuario;
 import br.com.vendasnb.conexoes.ConexaoMysql;
+import br.com.vendasnb.model.ModelCargo;
 import java.util.ArrayList;
 /**
 *
 * @author Nicolas bueno
 */
 public class DAOUsuario extends ConexaoMysql {
-
+    
     /**
     * grava Usuario
     * @param pModelUsuario
@@ -96,19 +97,11 @@ public class DAOUsuario extends ConexaoMysql {
         try {
             this.conectar();
             this.executarSQL(
-                "SELECT "
-                    + "id,"
-                    + "nome,"
-                    + "cpf,"
-                    + "telefone,"
-                    + "login,"
-                    + "senha,"
-                    + "cargo_id"
+                "SELECT *"
                  + " FROM"
                      + " usuario"
                  + " WHERE"
-                     + " nome = '" + pNomeUsuario + "'"
-                + ";"
+                     + " nome = '" + pNomeUsuario + "';"
             );
 
             while(this.getResultSet().next()){
@@ -135,31 +128,37 @@ public class DAOUsuario extends ConexaoMysql {
     public ArrayList<ModelUsuario> getListaUsuarioDAO(){
         ArrayList<ModelUsuario> listamodelUsuario = new ArrayList();
         ModelUsuario modelUsuario = new ModelUsuario();
+        ModelCargo modelCargo = new ModelCargo();
         try {
             this.conectar();
             this.executarSQL(
                 "SELECT "
-                    + "id,"
-                    + "nome,"
-                    + "cpf,"
-                    + "telefone,"
-                    + "login,"
-                    + "senha,"
-                    + "cargo_id"
+                    + "U.id,"
+                    + "U.nome,"
+                    + "U.cpf,"
+                    + "U.telefone,"
+                    + "U.login,"
+                    + "U.senha,"
+                   // + "U.cargo_id,"
+                        + "cargo.descricao"
                  + " FROM"
-                     + " usuario"
+                     + " cargo JOIN usuario U ON(cargo.id = U.cargo_id)"
                 + ";"
             );
 
             while(this.getResultSet().next()){
                 modelUsuario = new ModelUsuario();
+                modelCargo = new ModelCargo();
                 modelUsuario.setIdUsuario(this.getResultSet().getInt(1));
                 modelUsuario.setNomeUsuario(this.getResultSet().getString(2));
                 modelUsuario.setCpf(this.getResultSet().getString(3));
                 modelUsuario.setTelefone(this.getResultSet().getString(4));
                 modelUsuario.setLogin(this.getResultSet().getString(5));
                 modelUsuario.setSenha(this.getResultSet().getString(6));
-                modelUsuario.setCargoId(this.getResultSet().getInt(7));
+                //modelUsuario.setCargoId(this.getResultSet().getInt(7));
+                modelCargo.setDescricao(this.getResultSet().getString(7));
+                
+                modelUsuario.setModelCargo(modelCargo);
                 listamodelUsuario.add(modelUsuario);
             }
         }catch(Exception e){

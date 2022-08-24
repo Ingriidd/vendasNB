@@ -12,6 +12,7 @@ public class ModelUsuario {
     private String login;
     private String senha;
     private int cargoId;
+    private ModelCargo modelCargo;
 
     /**
     * Construtor
@@ -118,6 +119,20 @@ public class ModelUsuario {
 
     @Override
     public String toString(){
-        return "ModelUsuario {" + "::idUsuario = " + this.idUsuario + "::nomeUsuario = " + this.nomeUsuario + "::cpf = " + this.cpf + "::telefone = " + this.telefone + "::login = " + this.login + "::senha = " + this.senha + "::cargoId = " + this.cargoId +  "}";
+        return "ModelUsuario {" + "::idUsuario = " + this.getIdUsuario() + "::nomeUsuario = " + this.getNomeUsuario() + "::cpf = " + this.getCpf() + "::telefone = " + this.getTelefone() + "::login = " + this.getLogin() + "::senha = " + this.getSenha() + "::cargoId = " + this.getCargoId() +  "}";
+    }
+
+    /**
+     * @return the modelCargo
+     */
+    public ModelCargo getModelCargo() {
+        return modelCargo;
+    }
+
+    /**
+     * @param modelCargo the modelCargo to set
+     */
+    public void setModelCargo(ModelCargo modelCargo) {
+        this.modelCargo = modelCargo;
     }
 }
