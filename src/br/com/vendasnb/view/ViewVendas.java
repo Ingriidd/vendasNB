@@ -5,11 +5,13 @@
 package br.com.vendasnb.view;
 
 import br.com.vendasnb.controller.ControllerProdutos;
+import br.com.vendasnb.controller.ControllerProdutosVendasProdutos;
 import br.com.vendasnb.controller.ControllerUsuario;
 import br.com.vendasnb.controller.ControllerVenda;
 import br.com.vendasnb.controller.ControllerVendasProdutos;
 import br.com.vendasnb.controller.ControllerVendasUsuario;
 import br.com.vendasnb.model.ModelProdutos;
+import br.com.vendasnb.model.ModelProdutosVendasProdutos;
 import br.com.vendasnb.model.ModelUsuario;
 import br.com.vendasnb.model.ModelVenda;
 import br.com.vendasnb.model.ModelVendasProdutos;
@@ -28,23 +30,27 @@ public class ViewVendas extends javax.swing.JFrame {
     ControllerUsuario controllerUsuario = new ControllerUsuario();
     ModelUsuario modelUsuario = new ModelUsuario();
     ArrayList<ModelUsuario> listaModelUsuario = new ArrayList<>();
-    
+
     ControllerProdutos controllerProdutos = new ControllerProdutos();
     ModelProdutos modelProdutos = new ModelProdutos();
-    ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();    
-    
+    ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
+
     ArrayList<ModelVendasUsuario> listaModelVendasUsuario = new ArrayList<>();
     ControllerVendasUsuario controllerVendasUsuario = new ControllerVendasUsuario();
-    
+
     ControllerVenda controllerVenda = new ControllerVenda();
     ModelVenda modelVenda = new ModelVenda();
-    
+
     Datas datas = new Datas();
-    
+
     ControllerVendasProdutos controllerVendasProdutos = new ControllerVendasProdutos();
     ModelVendasProdutos modelVendaProdutos = new ModelVendasProdutos();
     ArrayList<ModelVendasProdutos> listaModelVendasProdutos = new ArrayList<>();
-    
+
+    ControllerProdutosVendasProdutos controllerProdutosVendasProdutos = new ControllerProdutosVendasProdutos();
+    ModelProdutosVendasProdutos modelProdutosVendasProdutos = new ModelProdutosVendasProdutos();
+    ArrayList<ModelProdutosVendasProdutos> listaModelProdutosVendasProdutos = new ArrayList<>();
+
     /**
      * Creates new form ViewVendas
      */
@@ -56,6 +62,7 @@ public class ViewVendas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.preencherComboBoxProduto();
         this.preencherComboBoxUsuario();
+        txtVenDesconto.setText("0");
     }
 
     /**
@@ -337,13 +344,18 @@ public class ViewVendas extends javax.swing.JFrame {
 
         btnVenPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/pesquisar.png"))); // NOI18N
         btnVenPesquisar.setToolTipText("Pesquisar");
+        btnVenPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenPesquisarActionPerformed(evt);
+            }
+        });
 
         tableVendas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Nome Usu.", "Data"
+                "Codigo Venda", "Nome Usu.", "Data"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -436,11 +448,11 @@ public class ViewVendas extends javax.swing.JFrame {
 
     private void txtVenCodUsuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenCodUsuFocusLost
         // TODO add your handling code here:
-        if(txtVenCodUsu.getText().equals("")){
-           txtVenCodUsu.setText("1"); 
-        }else{
-         modelUsuario = controllerUsuario.getUsuarioController(Integer.parseInt(txtVenCodUsu.getText()));
-         txtVenNomeUsu.setSelectedItem(modelUsuario.getNomeUsuario());
+        if (txtVenCodUsu.getText().equals("")) {
+            txtVenCodUsu.setText("1");
+        } else {
+            modelUsuario = controllerUsuario.getUsuarioController(Integer.parseInt(txtVenCodUsu.getText()));
+            txtVenNomeUsu.setSelectedItem(modelUsuario.getNomeUsuario());
         }
     }//GEN-LAST:event_txtVenCodUsuFocusLost
 
@@ -463,7 +475,7 @@ public class ViewVendas extends javax.swing.JFrame {
 
     private void txtVenNomeProPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_txtVenNomeProPopupMenuWillBecomeInvisible
         // TODO add your handling code here:
-        if(txtVenNomePro.isPopupVisible()){
+        if (txtVenNomePro.isPopupVisible()) {
             this.preencherComboBoxProduto();
         }
     }//GEN-LAST:event_txtVenNomeProPopupMenuWillBecomeInvisible
@@ -471,38 +483,59 @@ public class ViewVendas extends javax.swing.JFrame {
     private void btnVenExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenExcluirActionPerformed
         // Excluir venda:
         int linha = tableVendas.getSelectedRow();
-        int codigoVenda = (int)  tableVendas.getValueAt(linha, 0);
-        
-        if(this.controllerVenda.excluiiVendaController(codigoVenda)){
-            JOptionPane.showMessageDialog(this, "Venda excluído com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
-            this.carregarVendas();
-        }else{
+        int codigoVenda = (int) tableVendas.getValueAt(linha, 0);
+
+        //Voltar com os produtos de volta ao estoque
+        listaModelProdutos = new ArrayList<>();
+        listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
+        int cont = listaModelProdutosVendasProdutos.size();
+
+        for (int i = 0; i < cont; i++) {
+            modelProdutos = new ModelProdutos();
+            modelProdutos.setIdProduto(listaModelProdutosVendasProdutos.get(i).getModelProdutos().getIdProduto());
+
+            modelProdutos.setEstoque(
+                    listaModelProdutosVendasProdutos.get(i).getModelProdutos().getEstoque()
+                    + listaModelProdutosVendasProdutos.get(i).getModelVenda().getQuantidade()
+            );
+            listaModelProdutos.add(modelProdutos);
+        }
+        if (controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos)) {
+            controllerVendasProdutos.excluirVendasProdutosController(codigoVenda);
+            //Excluir a venda
+            if (this.controllerVenda.excluiiVendaController(codigoVenda)) {
+                JOptionPane.showMessageDialog(this, "Venda excluído com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+                this.carregarVendas();
+            } else {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir a venda!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
             JOptionPane.showMessageDialog(this, "Erro ao excluir a venda!", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnVenExcluirActionPerformed
 
     private void bntVendaAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntVendaAddActionPerformed
         // Botao adicionar 
-        if(txtVenQtdPro.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "Você deve preencher todos os campos","Atenção", JOptionPane.WARNING_MESSAGE);
-        }else{
-           modelProdutos = controllerProdutos.retornaProdutoController(Integer.parseInt(txtVenCodPro.getText()));
-           //adicionar linha na tabela
-           DefaultTableModel modelo = (DefaultTableModel) tableVendasProdutos.getModel();
-           int cont = 0;
-           double quantidade = 0;
-           quantidade = Double.parseDouble(txtVenQtdPro.getText());
-           for(int i=0; i < cont; i++){
-               modelo.setNumRows(0);
-           }
-           modelo.addRow(new Object[] {
-               modelProdutos.getIdProduto(),
-               modelProdutos.getNome(),
-               txtVenQtdPro.getText(),
-               modelProdutos.getValor(),
-               quantidade * modelProdutos.getValor()
-           });
-           this.somarTotalProdutos();
+        if (txtVenQtdPro.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Você deve preencher todos os campos", "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else {
+            modelProdutos = controllerProdutos.retornaProdutoController(Integer.parseInt(txtVenCodPro.getText()));
+            //adicionar linha na tabela
+            DefaultTableModel modelo = (DefaultTableModel) tableVendasProdutos.getModel();
+            int cont = 0;
+            double quantidade = 0;
+            quantidade = Double.parseDouble(txtVenQtdPro.getText());
+            for (int i = 0; i < cont; i++) {
+                modelo.setNumRows(0);
+            }
+            modelo.addRow(new Object[]{
+                modelProdutos.getIdProduto(),
+                modelProdutos.getNome(),
+                txtVenQtdPro.getText(),
+                modelProdutos.getValor(),
+                quantidade * modelProdutos.getValor()
+            });
+            this.somarTotalProdutos();
         }
     }//GEN-LAST:event_bntVendaAddActionPerformed
 
@@ -531,22 +564,23 @@ public class ViewVendas extends javax.swing.JFrame {
         int codigoVenda = 0, codigoProduto = 0;
         listaModelVendasProdutos = new ArrayList<>();
         try {
-            modelVenda.setDataVenda(datas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));  
+            modelVenda.setDataVenda(datas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
         } catch (Exception e) {
         }
+
         modelVenda.setValorLiquido(Double.parseDouble(txtVenValorTotal.getText()));
         modelVenda.setValorBruto(Double.parseDouble(txtVenValorTotal.getText()) + Double.parseDouble(txtVenDesconto.getText()));
         modelVenda.setDesconto(Double.parseDouble(txtVenDesconto.getText()));
-        
+
         //salvar codigo da venda
         codigoVenda = controllerVenda.salvarVendaController(modelVenda);
-        if(codigoVenda > 0){
-            JOptionPane.showMessageDialog(this, "Venda salva com sucesso","Atenção",JOptionPane.WARNING_MESSAGE);
+        if (codigoVenda > 0) {
+            JOptionPane.showMessageDialog(this, "Venda salva com sucesso", "Atenção", JOptionPane.WARNING_MESSAGE);
 
-        }else{
-            JOptionPane.showMessageDialog(this, "Erro ao salvar venda","Erro",JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar venda", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        
+
         int cont = tableVendasProdutos.getRowCount();
         for (int i = 0; i < cont; i++) {
             codigoProduto = (int) tableVendasProdutos.getValueAt(i, 0);
@@ -555,30 +589,34 @@ public class ViewVendas extends javax.swing.JFrame {
             modelProdutos = new ModelProdutos();
             modelVendaProdutos.setProdutoId(codigoProduto);
             modelVendaProdutos.setVendaId(codigoVenda);
-            modelVendaProdutos.setValorUnitario((Double) tableVendasProdutos.getValueAt(i,3));
-            modelVendaProdutos.setQuantidade(Integer.parseInt(tableVendasProdutos.getValueAt(i,2).toString()) );
+            modelVendaProdutos.setValorUnitario((Double) tableVendasProdutos.getValueAt(i, 3));
+            modelVendaProdutos.setQuantidade(Integer.parseInt(tableVendasProdutos.getValueAt(i, 2).toString()));
             //dar baixa no estoque
             modelProdutos.setIdProduto(codigoProduto);
             modelProdutos.setEstoque(controllerProdutos.retornaProdutoController(codigoProduto).getEstoque()
-                    - Integer.parseInt(tableVendasProdutos.getValueAt(i,2).toString()));
+                    - Integer.parseInt(tableVendasProdutos.getValueAt(i, 2).toString()));
             listaModelVendasProdutos.add(modelVendaProdutos);
             listaModelProdutos.add(modelProdutos);
-        } 
+        }
         // salvar os produtos da venda
-        if(controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutos)){
+        if (controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutos)) {
             // alterar o estoque de produtos
             controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos);
-            JOptionPane.showMessageDialog(this, "Produtos da venda salva com sucesso","Atenção",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Produtos da venda salva com sucesso", "Atenção", JOptionPane.WARNING_MESSAGE);
             this.carregarVendas();
             this.limparForm();
-        }else{
-            JOptionPane.showMessageDialog(this, "Erro ao salvar produtos","Erro",JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar produtos", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnVendaSaveActionPerformed
 
     private void txtVenDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVenDescontoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtVenDescontoActionPerformed
+
+    private void btnVenPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenPesquisarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVenPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -614,87 +652,94 @@ public class ViewVendas extends javax.swing.JFrame {
             }
         });
     }
-    
-    /***
+
+    /**
+     * *
      * preenche o combobox com todos usuarios
      */
-    
-    private void listarUsuario(){
+    private void listarUsuario() {
         listaModelUsuario = controllerUsuario.getListaUsuarioController();
         txtVenNomeUsu.removeAllItems();
-        for(int i=0; i<listaModelUsuario.size(); i++){
+        for (int i = 0; i < listaModelUsuario.size(); i++) {
             txtVenNomeUsu.addItem(listaModelUsuario.get(i).getNomeUsuario());
         }
     }
-    
-    /***
+
+    /**
+     * *
      * Preeche combobox com todos produtos
      */
-    
-    private void listarProdutos(){
+    private void listarProdutos() {
         listaModelProdutos = controllerProdutos.retornaListaProdutoController();
         txtVenNomePro.removeAllItems();
-        for(int i=0; i < listaModelProdutos.size(); i++) {
+        for (int i = 0; i < listaModelProdutos.size(); i++) {
             txtVenNomePro.addItem(listaModelProdutos.get(i).getNome());
         }
     }
-    
-    private void carregarVendas(){
+
+    /**
+     * *
+     * carrega as vendas do banco de dados
+     */
+    private void carregarVendas() {
         DefaultTableModel modelo = (DefaultTableModel) tableVendas.getModel();
         listaModelVendasUsuario = controllerVendasUsuario.getListaVendasUsuarioController();
-        for(int i=0; i < listaModelVendasUsuario.size(); i++){
+        modelo.setNumRows(0);
+        for (int i = 0; i < listaModelVendasUsuario.size(); i++) {
             modelo.addRow(new Object[]{
                 listaModelVendasUsuario.get(i).getModelVenda().getIdVenda(),
                 listaModelVendasUsuario.get(i).getModelUsuario().getNomeUsuario(),
-                listaModelVendasUsuario.get(i).getModelVenda().getDataVenda()       
+                listaModelVendasUsuario.get(i).getModelVenda().getDataVenda()
             });
         }
-        
     }
-    
-    /***
+
+    /**
+     * *
      * Soma todos os produtos da venda
      */
-    private void somarTotalProdutos(){
+    private void somarTotalProdutos() {
         double soma = 0, valor;
         int cont = tableVendasProdutos.getRowCount();
-        for(int i=0; i< cont; i++){
+        for (int i = 0; i < cont; i++) {
             valor = (double) tableVendasProdutos.getValueAt(i, 4);
             soma = soma + valor;
         }
         txtVenValorTotal.setText(String.valueOf(soma));
         this.aplicaDesconto();
     }
-    
+
     /**
      * Aplica Desconto ao valor final da venda
      */
-    
-    private void aplicaDesconto(){
+    private void aplicaDesconto() {
         try {
             txtVenValorTotal.setText(String.valueOf(
-            Double.parseDouble(txtVenValorTotal.getText()) - Double.parseDouble(txtVenDesconto.getText())));
+                    Double.parseDouble(txtVenValorTotal.getText()) - Double.parseDouble(txtVenDesconto.getText())));
         } catch (NumberFormatException e) {
-        }    
+        }
+
     }
-       
-    /***
+
+    /**
+     * *
      * preenche combo box
      */
-    private void preencherComboBoxUsuario(){
+    private void preencherComboBoxUsuario() {
         modelUsuario = controllerUsuario.getUsuarioController(txtVenNomeUsu.getSelectedItem().toString());
         txtVenCodUsu.setText(String.valueOf(modelUsuario.getIdUsuario()));
     }
-    
-    private void preencherComboBoxProduto(){
+
+    private void preencherComboBoxProduto() {
         modelProdutos = controllerProdutos.retornaProdutoController(txtVenNomePro.getSelectedItem().toString());
         txtVenCodPro.setText(String.valueOf(modelProdutos.getIdProduto()));
     }
 
-    private void limparForm(){
+    private void limparForm() {
         txtVenQtdPro.setText("");
         txtVenDesconto.setText("");
         txtVenValorTotal.setText("");
+        txtVenDesconto.setText("0");
         DefaultTableModel modelo = (DefaultTableModel) tableVendasProdutos.getModel();
         modelo.setNumRows(0);
     }
