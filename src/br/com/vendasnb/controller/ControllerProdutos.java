@@ -72,4 +72,14 @@ public class ControllerProdutos {
         return this.daoProdutos.retornarListaProdutosDAO();
     }
     
+    /***
+     * altera lista de produtos no banco
+     * @param plistaModelProdutos
+     * @return 
+     */
+
+    public boolean alterarEstoqueProdutoController(ArrayList<ModelProdutos> plistaModelProdutos) {
+        return this.daoProdutos.alterarEstoqueProdutosDAO(plistaModelProdutos);
+    }
+    
 }

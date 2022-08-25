@@ -101,6 +101,7 @@ public class ViewVendas extends javax.swing.JFrame {
         btnVenEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Vendas");
 
         jLabel1.setText("Código Usu.");
 
@@ -312,9 +313,9 @@ public class ViewVendas extends javax.swing.JFrame {
                             .addComponent(txtVenQtdPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtVenCodPro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(bntVendaAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6))
@@ -327,7 +328,7 @@ public class ViewVendas extends javax.swing.JFrame {
                     .addComponent(btnVenNovo)
                     .addComponent(btnVenCancelar)
                     .addComponent(btnVendaSave))
-                .addGap(9, 9, 9))
+                .addGap(35, 35, 35))
         );
 
         jTabbedPane1.addTab("Cadastro", jPanel1);
@@ -421,7 +422,9 @@ public class ViewVendas extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -504,17 +507,17 @@ public class ViewVendas extends javax.swing.JFrame {
     }//GEN-LAST:event_bntVendaAddActionPerformed
 
     private void txtVenDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenDescontoFocusLost
-        // TODO add your handling code here:
+        // Quando perder o foco da caixa desconto chama a funçao para somar os produtos
         this.somarTotalProdutos();
     }//GEN-LAST:event_txtVenDescontoFocusLost
 
     private void txtVenValorTotalFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenValorTotalFocusLost
-        // TODO add your handling code here:
+        // Quando perder o foco da caixa valor total chama a funçao para somar os produtos
         this.somarTotalProdutos();
     }//GEN-LAST:event_txtVenValorTotalFocusLost
 
     private void btnVenNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenNovoActionPerformed
-        // TODO add your handling code here:
+        // botao novo
         this.limparForm();
     }//GEN-LAST:event_btnVenNovoActionPerformed
 
@@ -525,7 +528,7 @@ public class ViewVendas extends javax.swing.JFrame {
     private void btnVendaSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendaSaveActionPerformed
         // Salvar as vendas
         modelVenda.setUsuarioId(Integer.parseInt(txtVenCodUsu.getText()));
-        int codigoVenda = 0;
+        int codigoVenda = 0, codigoProduto = 0;
         listaModelVendasProdutos = new ArrayList<>();
         try {
             modelVenda.setDataVenda(datas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));  
@@ -546,15 +549,25 @@ public class ViewVendas extends javax.swing.JFrame {
         
         int cont = tableVendasProdutos.getRowCount();
         for (int i = 0; i < cont; i++) {
+            codigoProduto = (int) tableVendasProdutos.getValueAt(i, 0);
+            //venda
             modelVendaProdutos = new ModelVendasProdutos();
-            modelVendaProdutos.setProdutoId((int) tableVendasProdutos.getValueAt(i, 0));
+            modelProdutos = new ModelProdutos();
+            modelVendaProdutos.setProdutoId(codigoProduto);
             modelVendaProdutos.setVendaId(codigoVenda);
             modelVendaProdutos.setValorUnitario((Double) tableVendasProdutos.getValueAt(i,3));
             modelVendaProdutos.setQuantidade(Integer.parseInt(tableVendasProdutos.getValueAt(i,2).toString()) );
+            //dar baixa no estoque
+            modelProdutos.setIdProduto(codigoProduto);
+            modelProdutos.setEstoque(controllerProdutos.retornaProdutoController(codigoProduto).getEstoque()
+                    - Integer.parseInt(tableVendasProdutos.getValueAt(i,2).toString()));
             listaModelVendasProdutos.add(modelVendaProdutos);
+            listaModelProdutos.add(modelProdutos);
         } 
         // salvar os produtos da venda
         if(controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutos)){
+            // alterar o estoque de produtos
+            controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos);
             JOptionPane.showMessageDialog(this, "Produtos da venda salva com sucesso","Atenção",JOptionPane.WARNING_MESSAGE);
             this.carregarVendas();
             this.limparForm();

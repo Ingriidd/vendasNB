@@ -65,7 +65,8 @@ public class ViewLogin extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Login do sistema:");
 
-        btnEntrar.setBackground(new java.awt.Color(0, 255, 153));
+        btnEntrar.setBackground(new java.awt.Color(102, 0, 204));
+        btnEntrar.setForeground(new java.awt.Color(255, 255, 255));
         btnEntrar.setText("Login");
         btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -74,7 +75,8 @@ public class ViewLogin extends javax.swing.JFrame {
             }
         });
 
-        btnSair.setBackground(new java.awt.Color(255, 0, 0));
+        btnSair.setBackground(new java.awt.Color(51, 0, 204));
+        btnSair.setForeground(new java.awt.Color(255, 255, 255));
         btnSair.setText("Sair");
         btnSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,26 +106,27 @@ public class ViewLogin extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(34, 34, 34)
-                                        .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(83, 83, 83)
-                                        .addComponent(btnSair))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(14, 14, 14)
-                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel2)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(34, 34, 34)
+                                                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(83, 83, 83)
+                                                .addComponent(btnSair))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(14, 14, 14)
+                                                .addComponent(jLabel5)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtLoginSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)))))
                 .addGap(87, 87, 87))
         );
         jPanel1Layout.setVerticalGroup(
