@@ -186,11 +186,11 @@ public class DAOVendasProdutos extends ConexaoMysql {
 
                 this.insertSQL(
                         "INSERT INTO vendas_produtos ("
-                        + "id,"
-                        + "quantidade,"
-                        + "valor_unitario,"
-                        + "venda_id,"
-                        + "produto_id"
+                        + "id, "
+                        + "quantidade, "
+                        + "valor_unitario, "
+                        + "venda_id, "
+                        + "produto_id "
                         + ") VALUES ("
                         + "'" + plistaModelVendasProdutos.get(i).getId() + "',"
                         + "'" + plistaModelVendasProdutos.get(i).getQuantidade() + "',"

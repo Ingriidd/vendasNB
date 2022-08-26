@@ -26,12 +26,12 @@ public class DAOVenda extends ConexaoMysql {
             return this.insertSQL(
                     "INSERT INTO venda( "
                     + "id, "
-                    + "data_venda,"
-                    + "valor_liquido,"
-                    + "valor_bruto,"
-                    + "desconto,"
-                    + "usuario_id) "
-                    + "VALUES("
+                    + "data_venda, "
+                    + "valor_liquido, "
+                    + "valor_bruto, "
+                    + "desconto, "
+                    + "usuario_id )"
+                    + " VALUES ("
                     + "'" + pModelVenda.getIdVenda() + "',"
                     + "'" + pModelVenda.getDataVenda() + "',"
                     + "'" + pModelVenda.getValorLiquido() + "',"
@@ -73,13 +73,13 @@ public class DAOVenda extends ConexaoMysql {
     public boolean alterarVendaDAO(ModelVenda pModelVenda){
         try {
             this.conectar();
-            return this.executarUpdateDeleteSQL("ALTER TABLE venda SET "
+            return this.executarUpdateDeleteSQL("UPDATE venda SET "
                     + "data_venda = '" + pModelVenda.getDataVenda() + "',"
                     + "valor_liquido = '" + pModelVenda.getValorLiquido() + "',"
                     + "valor_bruto = '"+ pModelVenda.getValorBruto() + "',"
                     + "desconto = '" + pModelVenda.getDesconto() + "',"
-                    + "usuario_id '" + pModelVenda.getUsuarioId() + "'"
-                    + "WHERE id = '" + pModelVenda.getIdVenda() + "';");
+                    + "usuario_id= '" + pModelVenda.getUsuarioId() + "'"
+                    + " WHERE id= '" + pModelVenda.getIdVenda() + "'");
         } catch (Exception e) {
             e.printStackTrace();
             return false;

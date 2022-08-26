@@ -16,7 +16,7 @@ public class ControllerProdutosVendasProdutos {
     
     private DAOProdutosVendasProdutos  daoProdutosVendasProdutos = new DAOProdutosVendasProdutos();
     
-    public ArrayList<ModelProdutosVendasProdutos> getListaProdutosVendasProdutosController(int pCodigoVenda){
+     public ArrayList<ModelProdutosVendasProdutos> getListaProdutosVendasProdutosController(int pCodigoVenda){
         return this.daoProdutosVendasProdutos.getListaProdutosVendasProdutosDAO(pCodigoVenda);
     }
 }
