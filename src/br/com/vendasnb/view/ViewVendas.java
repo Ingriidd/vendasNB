@@ -64,6 +64,7 @@ public class ViewVendas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         this.preencherComboBoxProduto();
         this.preencherComboBoxUsuario();
+        this.habilitarDesabilitar(false);
         txtVenDesconto.setText("0");
     }
 
@@ -182,6 +183,11 @@ public class ViewVendas extends javax.swing.JFrame {
 
         btnVenCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/cancelar.png"))); // NOI18N
         btnVenCancelar.setToolTipText("Cancelar");
+        btnVenCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenCancelarActionPerformed(evt);
+            }
+        });
 
         btnVenNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/novo.png"))); // NOI18N
         btnVenNovo.setToolTipText("Novo");
@@ -459,6 +465,8 @@ public class ViewVendas extends javax.swing.JFrame {
     private void btnVenEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenEditarActionPerformed
         // TODO add your handling code here:
         alterarSalvar = "alterar";
+        habilitarDesabilitar(true);
+        try {
         int linha = tableVendas.getSelectedRow();
         int codigoVenda = (int) tableVendas.getValueAt(linha, 0);
         listaModelProdutosVendasProdutos = controllerProdutosVendasProdutos.getListaProdutosVendasProdutosController(codigoVenda);
@@ -478,6 +486,9 @@ public class ViewVendas extends javax.swing.JFrame {
         }
         somarTotalProdutos();
         jTabbedPane1.setSelectedIndex(0);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Nenhum registro selecionado!", "AVISO", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnVenEditarActionPerformed
 
     private void txtVenCodUsuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenCodUsuFocusLost
@@ -587,6 +598,7 @@ public class ViewVendas extends javax.swing.JFrame {
         // botao novo
         alterarSalvar = "salvar";
         this.limparForm();
+        this.habilitarDesabilitar(true);
     }//GEN-LAST:event_btnVenNovoActionPerformed
 
     private void txtVenValorTotalFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtVenValorTotalFocusGained
@@ -598,9 +610,9 @@ public class ViewVendas extends javax.swing.JFrame {
         int codigoVenda = 0, codigoProduto = 0;
         listaModelVendasProdutos = new ArrayList<>();
 
-        //if (!txtVenCodVen.getText().equals("")) {
+       // if (!txtVenCodVen.getText().equals("")) {
         // modelVenda.setIdVenda(Integer.parseInt(txtVenCodVen.getText()));
-        // }
+       // }
         modelVenda.setUsuarioId(Integer.parseInt(txtVenCodUsu.getText()));
 
         try {
@@ -663,7 +675,6 @@ public class ViewVendas extends javax.swing.JFrame {
             for (int i = 0; i < cont; i++) {
                 modelProdutos = new ModelProdutos();
                 modelProdutos.setIdProduto(listaModelProdutosVendasProdutos.get(i).getModelProdutos().getIdProduto());
-
                 modelProdutos.setEstoque(
                         listaModelProdutosVendasProdutos.get(i).getModelProdutos().getEstoque()
                         + listaModelProdutosVendasProdutos.get(i).getModelVenda().getQuantidade()
@@ -706,6 +717,7 @@ public class ViewVendas extends javax.swing.JFrame {
             }
             //salvar produtos da venda
             if (controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutos)) {
+                controllerProdutos.alterarEstoqueProdutoController(listaModelProdutos);
                 JOptionPane.showMessageDialog(this, "Venda excluído com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
                 carregarVendas();
                 limparForm();
@@ -728,9 +740,16 @@ public class ViewVendas extends javax.swing.JFrame {
         // Remover produtos
         int linha = tableVendasProdutos.getSelectedRow();
         DefaultTableModel modelo = (DefaultTableModel) tableVendasProdutos.getModel();
-        modelo.removeRow(0);
+        
+        modelo.removeRow(linha);
         this.somarTotalProdutos();
     }//GEN-LAST:event_btnRemoveActionPerformed
+
+    private void btnVenCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenCancelarActionPerformed
+        // TODO add your handling code here:
+        this.limparForm();
+        this.habilitarDesabilitar(false);
+    }//GEN-LAST:event_btnVenCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -857,6 +876,10 @@ public class ViewVendas extends javax.swing.JFrame {
         txtVenDesconto.setText("0");
         DefaultTableModel modelo = (DefaultTableModel) tableVendasProdutos.getModel();
         modelo.setNumRows(0);
+    }
+    
+    private void habilitarDesabilitar(boolean condicao){
+        txtVenQtdPro.setEnabled(condicao);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bntVendaAdd;

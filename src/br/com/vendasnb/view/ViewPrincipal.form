@@ -122,7 +122,7 @@
     <Container class="componentes.UJPanelImagem" name="uJPanelImagem1">
       <Properties>
         <Property name="imagem" type="java.io.File" editor="org.netbeans.beaninfo.editors.FileEditor">
-          <SerializedValue value="-84,-19,0,5,115,114,0,12,106,97,118,97,46,105,111,46,70,105,108,101,4,45,-92,69,14,13,-28,-1,3,0,1,76,0,4,112,97,116,104,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,120,112,116,0,95,67,58,92,85,115,101,114,115,92,78,105,99,111,108,97,115,92,68,111,99,117,109,101,110,116,115,92,78,101,116,66,101,97,110,115,80,114,111,106,101,99,116,115,92,86,101,110,100,97,115,78,66,92,115,114,99,92,98,114,92,99,111,109,92,118,101,110,100,97,115,110,98,92,105,109,97,103,101,110,115,92,98,97,99,107,103,114,111,117,110,100,46,112,110,103,119,2,0,92,120"/>
+          <SerializedValue value="-84,-19,0,5,115,114,0,12,106,97,118,97,46,105,111,46,70,105,108,101,4,45,-92,69,14,13,-28,-1,3,0,1,76,0,4,112,97,116,104,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,120,112,116,0,91,67,58,92,85,115,101,114,115,92,78,105,99,111,108,97,115,92,68,111,99,117,109,101,110,116,115,92,78,101,116,66,101,97,110,115,80,114,111,106,101,99,116,115,92,86,101,110,100,97,115,78,66,92,115,114,99,92,98,114,92,99,111,109,92,118,101,110,100,97,115,110,98,92,105,109,97,103,101,110,115,92,102,117,110,100,111,49,46,112,110,103,119,2,0,92,120"/>
         </Property>
       </Properties>
 
@@ -130,18 +130,18 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="550" max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="277" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace pref="522" max="32767" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="373" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="455" max="32767" attributes="0"/>
-                  <Component id="jLabel1" min="-2" pref="86" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                  <EmptySpace pref="165" max="32767" attributes="0"/>
+                  <Component id="jLabel1" min="-2" pref="363" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -150,7 +150,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/vendasnb/imagens/NBtech-sem.png"/>
+              <Image iconType="3" name="/br/com/vendasnb/imagens/character.png"/>
             </Property>
           </Properties>
         </Component>

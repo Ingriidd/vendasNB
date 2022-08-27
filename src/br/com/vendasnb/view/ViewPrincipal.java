@@ -45,25 +45,25 @@ public class ViewPrincipal extends javax.swing.JFrame {
         setTitle("NB TechSoft - Sistema de Vendas");
         setResizable(false);
 
-        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Nicolas\\Documents\\NetBeansProjects\\VendasNB\\src\\br\\com\\vendasnb\\imagens\\background.png"));
+        uJPanelImagem1.setImagem(new java.io.File("C:\\Users\\Nicolas\\Documents\\NetBeansProjects\\VendasNB\\src\\br\\com\\vendasnb\\imagens\\fundo1.png"));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/NBtech-sem.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/character.png"))); // NOI18N
 
         javax.swing.GroupLayout uJPanelImagem1Layout = new javax.swing.GroupLayout(uJPanelImagem1);
         uJPanelImagem1.setLayout(uJPanelImagem1Layout);
         uJPanelImagem1Layout.setHorizontalGroup(
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, uJPanelImagem1Layout.createSequentialGroup()
-                .addContainerGap(550, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
+                .addContainerGap(522, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
         uJPanelImagem1Layout.setVerticalGroup(
             uJPanelImagem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, uJPanelImagem1Layout.createSequentialGroup()
-                .addContainerGap(455, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addContainerGap(165, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94))
         );
 
         jMenu1.setText("Arquivos");
