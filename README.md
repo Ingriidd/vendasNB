@@ -47,7 +47,7 @@ Projeto de sistema para gestão de vendas e controle de estoque, com implemenç�
 
 ### Tecnologias 🛠
 
-As seguintes ferramentas vai ser usadas na construção do projeto:
+As seguintes ferramentas foram usadas na construção do projeto:
 
 - JAVA (PARA INTERFACE)
 - MYSQL (BANCO DE DADOS)
