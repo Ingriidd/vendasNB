@@ -48,8 +48,12 @@ public class DaoProdutos extends ConexaoMysql {
     public boolean excluirProdutoDAO(int pIdProduto) {
         try {
             this.conectar();
-            return this.executarUpdateDeleteSQL(
-                    "DELETE FROM produto WHERE id= '" + pIdProduto + "';"
+            this.executarUpdateDeleteSQL(
+                    "SET FOREIGN_KEY_CHECKS=0;");
+            return this.executarUpdateDeleteSQL( "DELETE FROM produto WHERE id=" + pIdProduto
+
+
+                    
             );
         } catch (Exception e) {
             e.printStackTrace();
