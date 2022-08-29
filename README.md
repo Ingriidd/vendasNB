@@ -13,7 +13,8 @@ Projeto de sistema para gestão de vendas e controle de estoque, com implemenç�
 	🚧 Em construção...  🚧
 </h4>
 
-<img>https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/src/br/com/vendasnb/imagens/NBtech-sem.png
+
+<img height="160em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/src/br/com/vendasnb/imagens/NBtech-sem.png"/>
 
 ### Introdução
 Será apresentado um projeto de software para gestão de vendas e controle de estoque VendasNB.
