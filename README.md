@@ -13,9 +13,6 @@ Projeto de sistema para gestão de vendas e controle de estoque, com implemenç�
 	🚧 Em construção...  🚧
 </h4>
 
-
-<img height="800em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/login.png"/>
-
 ### Introdução
 Será apresentado um projeto de software para gestão de vendas e controle de estoque VendasNB.
 
@@ -24,6 +21,30 @@ Será apresentado um projeto de software para gestão de vendas e controle de es
 - Você tem a facilidade de reunir todas as funcionalidades no mesmo menu.
 - Sem falar no controle das informações sobre estoque, histórico de vendas, e mais.
 - Dessa maneira, sua rotina fica muito facilitada, já que todas as informações sobre seu negócio estão agrupadas e seguras em um mesmo software.</p>
+
+### Views
+---
+<p>-Tela Login</p>
+<img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/login.png"/>
+
+<p>-Tela Principal</p>
+<img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/principal.png"/>
+
+<p>-Tela cadastros de fornecedores</p>
+<img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/fornecedores.png"/>
+
+<p>-Tela cadastros de cargos</p>
+<img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/cargos.png"/>
+
+<p>-Tela cadastros de usuários</p>
+<img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/usuario.png"/>
+
+<p>-Tela cadastro de produtos</p>
+<img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/produtos.png"/>
+
+<p>-Tela cadastro de vendas</p>
+<img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/vendas.png"/>
+
 
 ### Usuários 👨‍👩‍👦	
 - Os usuários do sistema se dividem basicamente em quatro grupos:
