@@ -3,24 +3,20 @@ Projeto de sistema para gestão de vendas e controle de estoque, com implemenç�
 <p align="center">
  <a href="#introducao">Introdução</a> •
  <a href="#decricao">Descrição</a> •
- <a href="#usuarios">Usuários</a> •
- <a href="#requisitos">Requisitos</a> •
+ <a href="#views">Views</a> •
  <a href="#tecnologias">Tecnologias</a> • 
  <a href="#autor">Autor</a> 
 </p>
 
-<h4 align="center"> 
-	🚧 Em construção...  🚧
-</h4>
-
 ### Introdução
-Será apresentado um projeto de software para gestão de vendas e controle de estoque VendasNB.
+<p>Será apresentado um projeto de software para gestão de vendas e controle de estoque VendasNB.</p>
+<p>Contruido com padrão Java MVC</p>
 
 ### Descrição
-<p align="center">- Com um software para vendas e controle de estoque, você pode reunir informações importantes no mesmo lugar.
-- Você tem a facilidade de reunir todas as funcionalidades no mesmo menu.
-- Sem falar no controle das informações sobre estoque, histórico de vendas, e mais.
-- Dessa maneira, sua rotina fica muito facilitada, já que todas as informações sobre seu negócio estão agrupadas e seguras em um mesmo software.</p>
+<p>- Com um software para vendas e controle de estoque, você pode reunir informações importantes no mesmo lugar.</p>
+<p>- Você tem a facilidade de reunir todas as funcionalidades no mesmo menu.</p>
+<p>- Sem falar no controle das informações sobre estoque, histórico de vendas, e mais.</p>
+<p>- Dessa maneira, sua rotina fica muito facilitada, já que todas as informações sobre seu negócio estão agrupadas e seguras em um mesmo software.</p>
 
 ### Views
 ---
@@ -45,17 +41,9 @@ Será apresentado um projeto de software para gestão de vendas e controle de es
 <p>-Tela cadastro de vendas</p>
 <img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/vendas.png"/>
 
-
-### Usuários 👨‍👩‍👦	
-- Os usuários do sistema se dividem basicamente em quatro grupos:
-
-- Administrador: Tem acesso a todas as funcionalidades do sistema.
-
-- Médico: Acesso a agenda e concluir status da consulta. 
-
-- Atendentes: Tem acesso ás funcionalidades de atendimento e controle da agenda no sistema.
-
-- Setor financeiro: Tem acesso ás funcionalidades de registros e relatórios financeiros do sistema.
+<h4 align="center"> 
+	🚧 PDV Em construção...  🚧	
+</h4>
 
 ### Tecnologias 🛠
 
