@@ -4,11 +4,20 @@
  */
 package br.com.vendasnb.view;
 
+import br.com.vendasnb.controller.ControllerProdutos;
+import br.com.vendasnb.model.ModelProdutos;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nicolas
  */
 public class ViewPDV extends javax.swing.JFrame {
+    
+    ControllerProdutos controllerProduto = new ControllerProdutos();
+    ModelProdutos modelProduto = new ModelProdutos();
+    int item = 0;
+    
 
     /**
      * Creates new form ViewPDV
@@ -37,15 +46,15 @@ public class ViewPDV extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtValorTotal = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField2 = new javax.swing.JTextField();
+        tablePDV = new javax.swing.JTable();
+        txtCodProduto = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -161,7 +170,7 @@ public class ViewPDV extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtValorTotal, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
@@ -176,7 +185,7 @@ public class ViewPDV extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -213,12 +222,9 @@ public class ViewPDV extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablePDV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item", "Código", "Nome", "Quantidade", "Valor Unit.", "Valor Total"
@@ -232,24 +238,30 @@ public class ViewPDV extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(40);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(40);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(40);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(60);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(60);
-            jTable1.getColumnModel().getColumn(3).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(70);
-            jTable1.getColumnModel().getColumn(3).setMaxWidth(70);
-            jTable1.getColumnModel().getColumn(4).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(70);
-            jTable1.getColumnModel().getColumn(4).setMaxWidth(70);
-            jTable1.getColumnModel().getColumn(5).setMinWidth(70);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(70);
-            jTable1.getColumnModel().getColumn(5).setMaxWidth(70);
+        jScrollPane1.setViewportView(tablePDV);
+        if (tablePDV.getColumnModel().getColumnCount() > 0) {
+            tablePDV.getColumnModel().getColumn(0).setMinWidth(40);
+            tablePDV.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tablePDV.getColumnModel().getColumn(0).setMaxWidth(40);
+            tablePDV.getColumnModel().getColumn(1).setMinWidth(60);
+            tablePDV.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tablePDV.getColumnModel().getColumn(1).setMaxWidth(60);
+            tablePDV.getColumnModel().getColumn(3).setMinWidth(70);
+            tablePDV.getColumnModel().getColumn(3).setPreferredWidth(70);
+            tablePDV.getColumnModel().getColumn(3).setMaxWidth(70);
+            tablePDV.getColumnModel().getColumn(4).setMinWidth(70);
+            tablePDV.getColumnModel().getColumn(4).setPreferredWidth(70);
+            tablePDV.getColumnModel().getColumn(4).setMaxWidth(70);
+            tablePDV.getColumnModel().getColumn(5).setMinWidth(70);
+            tablePDV.getColumnModel().getColumn(5).setPreferredWidth(70);
+            tablePDV.getColumnModel().getColumn(5).setMaxWidth(70);
         }
+
+        txtCodProduto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodProdutoKeyReleased(evt);
+            }
+        });
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/NBtech-sem.png"))); // NOI18N
 
@@ -263,7 +275,7 @@ public class ViewPDV extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
-                            .addComponent(jTextField2))
+                            .addComponent(txtCodProduto))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
@@ -280,7 +292,7 @@ public class ViewPDV extends javax.swing.JFrame {
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -332,6 +344,42 @@ public class ViewPDV extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void txtCodProdutoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodProdutoKeyReleased
+        // TODO add your handling code here:
+        this.getConteudo(evt);
+    }//GEN-LAST:event_txtCodProdutoKeyReleased
+
+    
+    private void getConteudo(java.awt.event.KeyEvent e){
+        int quantidade = 1;
+        DefaultTableModel modelo = (DefaultTableModel) tablePDV.getModel();
+        if(e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+            item += 1;
+            modelProduto = controllerProduto.retornaProdutoController(Integer.parseInt(txtCodProduto.getText()));
+            
+            modelo.addRow(new Object[]{
+                item,
+                modelProduto.getIdProduto(),
+                modelProduto.getNome(),
+                quantidade,
+                modelProduto.getValorVenda(),
+                modelProduto.getValorVenda() * quantidade
+            });
+            txtValorTotal.setText(String.valueOf(somaValorTotal()));
+        }
+    }
+    
+    private float somaValorTotal(){
+        float soma = 0, valor = 0;
+        int cont = tablePDV.getRowCount();
+        for (int i = 0; i < cont; i++) {
+            valor = Float.parseFloat(String.valueOf(tablePDV.getValueAt(i, 5)));
+            soma += valor;
+            
+        }
+        
+        return soma;
+    }
     /**
      * @param args the command line arguments
      */
@@ -393,8 +441,8 @@ public class ViewPDV extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tablePDV;
+    private javax.swing.JTextField txtCodProduto;
+    private javax.swing.JTextField txtValorTotal;
     // End of variables declaration//GEN-END:variables
 }
