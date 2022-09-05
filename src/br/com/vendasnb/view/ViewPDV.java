@@ -6,6 +6,13 @@ package br.com.vendasnb.view;
 
 import br.com.vendasnb.controller.ControllerProdutos;
 import br.com.vendasnb.model.ModelProdutos;
+import br.com.vendasnb.model.ModelVenda;
+import br.com.vendasnb.model.ModelVendasProdutos;
+import br.com.vendasnb.util.Datas;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,7 +23,10 @@ public class ViewPDV extends javax.swing.JFrame {
     
     ControllerProdutos controllerProduto = new ControllerProdutos();
     ModelProdutos modelProduto = new ModelProdutos();
-    int item = 0;
+    ModelVenda modelVenda =  new ModelVenda();
+    ModelVendasProdutos modelVendasProdutos =  new ModelVendasProdutos();
+    ArrayList<ModelVendasProdutos> listaModelVendasProdutos = new ArrayList<>();
+    Datas datas = new Datas();
     
 
     /**
@@ -24,6 +34,7 @@ public class ViewPDV extends javax.swing.JFrame {
      */
     public ViewPDV() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -61,7 +72,7 @@ public class ViewPDV extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        MenuItemF4 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -309,9 +320,14 @@ public class ViewPDV extends javax.swing.JFrame {
         jMenuItem2.setText("Alterar Quantidade");
         jMenu2.add(jMenuItem2);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
-        jMenuItem3.setText("Finalizar Venda");
-        jMenu2.add(jMenuItem3);
+        MenuItemF4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        MenuItemF4.setText("Finalizar Venda");
+        MenuItemF4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemF4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MenuItemF4);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         jMenuItem4.setText("Pesquisar Produtos");
@@ -349,16 +365,29 @@ public class ViewPDV extends javax.swing.JFrame {
         this.getConteudo(evt);
     }//GEN-LAST:event_txtCodProdutoKeyReleased
 
+    private void MenuItemF4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemF4ActionPerformed
+        // Botao F4 finalizar venda 
+        modelVenda = new ModelVenda();
+        modelVenda.setUsuarioId(1);
+        try {
+            modelVenda.setDataVenda(datas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
+        } catch (ParseException ex) {
+            Logger.getLogger(ViewPDV.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        modelVenda.setValorBruto(Double.parseDouble(txtValorTotal.getText()));
+        modelVenda.setDesconto(0.0);
+        modelVenda.setValorLiquido(Double.parseDouble(txtValorTotal.getText()));        
+    }//GEN-LAST:event_MenuItemF4ActionPerformed
+
     
     private void getConteudo(java.awt.event.KeyEvent e){
         int quantidade = 1;
         DefaultTableModel modelo = (DefaultTableModel) tablePDV.getModel();
         if(e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            item += 1;
             modelProduto = controllerProduto.retornaProdutoController(Integer.parseInt(txtCodProduto.getText()));
             
             modelo.addRow(new Object[]{
-                item,
+                modelo.getRowCount()+1,
                 modelProduto.getIdProduto(),
                 modelProduto.getNome(),
                 quantidade,
@@ -366,6 +395,7 @@ public class ViewPDV extends javax.swing.JFrame {
                 modelProduto.getValorVenda() * quantidade
             });
             txtValorTotal.setText(String.valueOf(somaValorTotal()));
+            txtCodProduto.setText("");
         }
     }
     
@@ -416,6 +446,7 @@ public class ViewPDV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuItemF4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -434,7 +465,6 @@ public class ViewPDV extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
