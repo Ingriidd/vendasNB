@@ -5,6 +5,8 @@
 package br.com.vendasnb.view;
 
 import br.com.vendasnb.controller.ControllerProdutos;
+import br.com.vendasnb.controller.ControllerVenda;
+import br.com.vendasnb.controller.ControllerVendasProdutos;
 import br.com.vendasnb.model.ModelProdutos;
 import br.com.vendasnb.model.ModelVenda;
 import br.com.vendasnb.model.ModelVendasProdutos;
@@ -13,6 +15,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,14 +23,16 @@ import javax.swing.table.DefaultTableModel;
  * @author Nicolas
  */
 public class ViewPDV extends javax.swing.JFrame {
-    
+
     ControllerProdutos controllerProduto = new ControllerProdutos();
+    ControllerVenda controllerVenda = new ControllerVenda();
+    ControllerVendasProdutos controllerVendasProdutos = new ControllerVendasProdutos();
     ModelProdutos modelProduto = new ModelProdutos();
-    ModelVenda modelVenda =  new ModelVenda();
-    ModelVendasProdutos modelVendasProdutos =  new ModelVendasProdutos();
+    ModelVenda modelVenda = new ModelVenda();
+    ArrayList<ModelProdutos> listaModelProdutos = new ArrayList<>();
+    ModelVendasProdutos modelVendasProdutos = new ModelVendasProdutos();
     ArrayList<ModelVendasProdutos> listaModelVendasProdutos = new ArrayList<>();
     Datas datas = new Datas();
-    
 
     /**
      * Creates new form ViewPDV
@@ -367,27 +372,78 @@ public class ViewPDV extends javax.swing.JFrame {
 
     private void MenuItemF4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemF4ActionPerformed
         // Botao F4 finalizar venda 
-        modelVenda = new ModelVenda();
+        int codigoProduto = 0, codigoVenda = 0;
+        
+        listaModelVendasProdutos = new ArrayList<>();
+        
         modelVenda.setUsuarioId(1);
+        
         try {
             modelVenda.setDataVenda(datas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
-        } catch (ParseException ex) {
-            Logger.getLogger(ViewPDV.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e) {
         }
+
+        modelVenda.setValorLiquido(Double.parseDouble(txtValorTotal.getText()));
         modelVenda.setValorBruto(Double.parseDouble(txtValorTotal.getText()));
         modelVenda.setDesconto(0.0);
-        modelVenda.setValorLiquido(Double.parseDouble(txtValorTotal.getText()));        
+        
+        //Salvar venda
+        codigoVenda = controllerVenda.salvarVendaController(modelVenda);
+        System.out.println(codigoVenda);
+
+
+        for (int i = 0; i < tablePDV.getRowCount(); i++) {
+            codigoProduto = (int) tablePDV.getValueAt(i, 1);
+            //venda
+            modelVendasProdutos = new ModelVendasProdutos();
+            modelProduto = new ModelProdutos();
+            modelVendasProdutos.setProdutoId(codigoProduto);
+            modelVendasProdutos.setVendaId(codigoVenda);
+            modelVendasProdutos.setValorUnitario((Double) tablePDV.getValueAt(i, 4));
+            modelVendasProdutos.setQuantidade(Integer.parseInt(tablePDV.getValueAt(i, 3).toString()));
+            //dar baixa no estoque
+            modelProduto.setIdProduto(codigoProduto);
+            modelProduto.setEstoque(controllerProduto.retornaProdutoController(codigoProduto).getEstoque()
+                    - Integer.parseInt(tablePDV.getValueAt(i, 3).toString()));
+            listaModelVendasProdutos.add(modelVendasProdutos);
+            listaModelProdutos.add(modelProduto);
+        }
+            // salvar os produtos da venda
+        if (controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutos)) {
+            // alterar o estoque de produtos
+            controllerProduto.alterarEstoqueProdutoController(listaModelProdutos);
+            JOptionPane.showMessageDialog(this, "Produtos da venda salva com sucesso", "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar produtos", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+       
+
     }//GEN-LAST:event_MenuItemF4ActionPerformed
 
-    
-    private void getConteudo(java.awt.event.KeyEvent e){
+    private void getConteudo(java.awt.event.KeyEvent e) {
         int quantidade = 1;
         DefaultTableModel modelo = (DefaultTableModel) tablePDV.getModel();
-        if(e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+        if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             modelProduto = controllerProduto.retornaProdutoController(Integer.parseInt(txtCodProduto.getText()));
-            
+
             modelo.addRow(new Object[]{
-                modelo.getRowCount()+1,
+                modelo.getRowCount() + 1,
                 modelProduto.getIdProduto(),
                 modelProduto.getNome(),
                 quantidade,
@@ -398,18 +454,19 @@ public class ViewPDV extends javax.swing.JFrame {
             txtCodProduto.setText("");
         }
     }
-    
-    private float somaValorTotal(){
+
+    private float somaValorTotal() {
         float soma = 0, valor = 0;
         int cont = tablePDV.getRowCount();
         for (int i = 0; i < cont; i++) {
             valor = Float.parseFloat(String.valueOf(tablePDV.getValueAt(i, 5)));
             soma += valor;
-            
+
         }
-        
+
         return soma;
     }
+
     /**
      * @param args the command line arguments
      */

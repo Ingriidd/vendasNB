@@ -32,11 +32,11 @@ public class DAOVenda extends ConexaoMysql {
                     + "desconto, "
                     + "usuario_id )"
                     + " VALUES ("
-                    + "'" + pModelVenda.getIdVenda() + "',"
-                    + "'" + pModelVenda.getDataVenda() + "',"
-                    + "'" + pModelVenda.getValorLiquido() + "',"
-                    + "'" + pModelVenda.getValorBruto() + "',"
-                    + "'" + pModelVenda.getDesconto() + "',"
+                    + "'" + pModelVenda.getIdVenda() + "', "
+                    + "'" + pModelVenda.getDataVenda() + "', "
+                    + "'" + pModelVenda.getValorLiquido() + "', "
+                    + "'" + pModelVenda.getValorBruto() + "', "
+                    + "'" + pModelVenda.getDesconto() + "', "
                     + "'" + pModelVenda.getUsuarioId() + "');"
             );
         } catch (Exception e) {
