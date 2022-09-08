@@ -1,7 +1,7 @@
 # VendasNB
 Projeto de sistema para gestão de vendas e controle de estoque, com implemenção do PDV.
 <p align="center">
- <a href="#introducao">Introdução</a> •
+ • <a href="#introducao">Introdução</a> •
  <a href="#decricao">Descrição</a> •
  <a href="#views">Views</a> •
  <a href="#tecnologias">Tecnologias</a> • 
