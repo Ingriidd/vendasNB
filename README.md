@@ -43,6 +43,7 @@ Projeto de sistema para gestão de vendas e controle de estoque, com implemenç�
 
 <h4 align="center"> 
 	🚧 PDV Em construção...  🚧	
+	🚧 Novos CRUD Em construção...  🚧
 </h4>
 
 ### Tecnologias 🛠
