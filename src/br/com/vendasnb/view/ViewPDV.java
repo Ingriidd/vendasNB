@@ -33,6 +33,7 @@ public class ViewPDV extends javax.swing.JFrame {
     ModelVendasProdutos modelVendasProdutos = new ModelVendasProdutos();
     ArrayList<ModelVendasProdutos> listaModelVendasProdutos = new ArrayList<>();
     Datas datas = new Datas();
+    int quantidade;
 
     /**
      * Creates new form ViewPDV
@@ -40,6 +41,7 @@ public class ViewPDV extends javax.swing.JFrame {
     public ViewPDV() {
         initComponents();
         setLocationRelativeTo(null);
+        quantidade = 1;
     }
 
     /**
@@ -76,8 +78,8 @@ public class ViewPDV extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        MenuItemF4 = new javax.swing.JMenuItem();
+        jMenuItemQuantidade = new javax.swing.JMenuItem();
+        MenuItemFInalizarVenda = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -321,18 +323,23 @@ public class ViewPDV extends javax.swing.JFrame {
 
         jMenu2.setText("Comandos");
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
-        jMenuItem2.setText("Alterar Quantidade");
-        jMenu2.add(jMenuItem2);
-
-        MenuItemF4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
-        MenuItemF4.setText("Finalizar Venda");
-        MenuItemF4.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemQuantidade.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
+        jMenuItemQuantidade.setText("Quantidade");
+        jMenuItemQuantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuItemF4ActionPerformed(evt);
+                jMenuItemQuantidadeActionPerformed(evt);
             }
         });
-        jMenu2.add(MenuItemF4);
+        jMenu2.add(jMenuItemQuantidade);
+
+        MenuItemFInalizarVenda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, 0));
+        MenuItemFInalizarVenda.setText("Finalizar Venda");
+        MenuItemFInalizarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemFInalizarVendaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MenuItemFInalizarVenda);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         jMenuItem4.setText("Pesquisar Produtos");
@@ -370,7 +377,7 @@ public class ViewPDV extends javax.swing.JFrame {
         this.getConteudo(evt);
     }//GEN-LAST:event_txtCodProdutoKeyReleased
 
-    private void MenuItemF4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemF4ActionPerformed
+    private void MenuItemFInalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemFInalizarVendaActionPerformed
         // Botao F4 finalizar venda 
         int codigoProduto = 0, codigoVenda = 0;
         
@@ -389,8 +396,6 @@ public class ViewPDV extends javax.swing.JFrame {
         
         //Salvar venda
         codigoVenda = controllerVenda.salvarVendaController(modelVenda);
-        System.out.println(codigoVenda);
-
 
         for (int i = 0; i < tablePDV.getRowCount(); i++) {
             codigoProduto = (int) tablePDV.getValueAt(i, 1);
@@ -416,28 +421,15 @@ public class ViewPDV extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Erro ao salvar produtos", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    }//GEN-LAST:event_MenuItemFInalizarVendaActionPerformed
 
-       
-
-    }//GEN-LAST:event_MenuItemF4ActionPerformed
+    private void jMenuItemQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuantidadeActionPerformed
+        //Quantidade F3
+        quantidade = Integer.parseInt(JOptionPane.showInputDialog("Informe a quantidade!"));
+        
+    }//GEN-LAST:event_jMenuItemQuantidadeActionPerformed
 
     private void getConteudo(java.awt.event.KeyEvent e) {
-        int quantidade = 1;
         DefaultTableModel modelo = (DefaultTableModel) tablePDV.getModel();
         if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             modelProduto = controllerProduto.retornaProdutoController(Integer.parseInt(txtCodProduto.getText()));
@@ -452,6 +444,7 @@ public class ViewPDV extends javax.swing.JFrame {
             });
             txtValorTotal.setText(String.valueOf(somaValorTotal()));
             txtCodProduto.setText("");
+            quantidade = 1;
         }
     }
 
@@ -461,7 +454,6 @@ public class ViewPDV extends javax.swing.JFrame {
         for (int i = 0; i < cont; i++) {
             valor = Float.parseFloat(String.valueOf(tablePDV.getValueAt(i, 5)));
             soma += valor;
-
         }
 
         return soma;
@@ -503,7 +495,7 @@ public class ViewPDV extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem MenuItemF4;
+    private javax.swing.JMenuItem MenuItemFInalizarVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -521,8 +513,8 @@ public class ViewPDV extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItemQuantidade;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

@@ -128,6 +128,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/vendasnb/imagens/online_icon 24px.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="PDV"/>
+              </Properties>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -181,7 +189,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="260" max="32767" attributes="0"/>
+                  <EmptySpace pref="296" max="32767" attributes="0"/>
                   <Component id="jLabel2" min="-2" pref="537" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -220,19 +228,18 @@
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnPDV" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="btnPro" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnUsu" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnCar" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnFor" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnVenda" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="btnPro" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnUsu" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnCar" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnFor" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnVenda" alignment="1" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -265,8 +272,11 @@
                           <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnPDV" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnPDV" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="158" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -432,6 +442,14 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPDVActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel7">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/vendasnb/imagens/online_icon 32px.png"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" value="PDV"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
