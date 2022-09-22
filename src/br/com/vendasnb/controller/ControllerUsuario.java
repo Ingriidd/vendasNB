@@ -74,4 +74,8 @@ public class ControllerUsuario {
     public boolean getValidarUsuarioController(ModelUsuario pModelUsuario) {
         return this.daoUsuario.getValidarUsuarioDao(pModelUsuario);
     }
+
+    public ModelUsuario getUsuarioLoginController(String pLogin) {
+        return this.daoUsuario.getUsuarioLoginDAO(pLogin);
+    }
 }

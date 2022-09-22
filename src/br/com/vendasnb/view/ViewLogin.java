@@ -5,6 +5,7 @@
 package br.com.vendasnb.view;
 
 import br.com.vendasnb.controller.ControllerUsuario;
+import br.com.vendasnb.model.ModelSessaoUsuario;
 import br.com.vendasnb.model.ModelUsuario;
 import javax.swing.JOptionPane;
 
@@ -16,6 +17,7 @@ public class ViewLogin extends javax.swing.JFrame {
     
     ControllerUsuario controllerUsuario = new ControllerUsuario();
     ModelUsuario modelUsuario = new ModelUsuario();
+    ModelSessaoUsuario modelSessaoUsuario = new ModelSessaoUsuario();
 
     /**
      * Creates new form ViewLogin
@@ -177,7 +179,12 @@ public class ViewLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         modelUsuario.setLogin(txtLoginUsu.getText());
         modelUsuario.setSenha(String.valueOf(txtLoginSenha.getPassword()));
+        
         if (controllerUsuario.getValidarUsuarioController(modelUsuario)) {
+            modelUsuario = controllerUsuario.getUsuarioLoginController(txtLoginUsu.getText());
+            modelSessaoUsuario.codigo = modelUsuario.getIdUsuario();
+            modelSessaoUsuario.nome = modelUsuario.getNomeUsuario();
+            modelSessaoUsuario.login = modelUsuario.getLogin();
             new ViewPrincipal().setVisible(true);
         } else {
             JOptionPane.showMessageDialog(this, "Usuário/Senha invalido!", "AVISO", JOptionPane.WARNING_MESSAGE);
