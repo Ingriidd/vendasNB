@@ -1,7 +1,7 @@
 # VendasNB
 Projeto de sistema para gestão de vendas e controle de estoque, com implemenção do PDV.
 <p align="center">
- <a href="#introducao">Introdução</a> •
+ • <a href="#introducao">Introdução</a> •
  <a href="#decricao">Descrição</a> •
  <a href="#views">Views</a> •
  <a href="#tecnologias">Tecnologias</a> • 
@@ -42,7 +42,8 @@ Projeto de sistema para gestão de vendas e controle de estoque, com implemenç�
 <img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/vendas.png"/>
 
 <h4 align="center"> 
-	🚧 PDV Em construção...  🚧	
+	🚧 PDV em construção...  🚧	
+	🚧 Novos CRUD em construção...  🚧
 </h4>
 
 ### Tecnologias 🛠
