@@ -33,6 +33,7 @@ public class ViewPDV extends javax.swing.JFrame {
     Datas datas = new Datas();
     ModelSessaoUsuario modelSessaoUsuario = new ModelSessaoUsuario();
     int quantidade;
+    private ViewPagamentoPDV viewPagamentoPDV;
 
     /**
      * Creates new form ViewPDV
@@ -42,6 +43,7 @@ public class ViewPDV extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         quantidade = 1;
         this.setarOperador();
+        this.viewPagamentoPDV = new ViewPagamentoPDV(this, true);
     }
 
     /**
@@ -393,50 +395,15 @@ public class ViewPDV extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void MenuItemFInalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemFInalizarVendaActionPerformed
-        // Botao F4 finalizar venda 
-        int codigoProduto = 0, codigoVenda = 0;
-
-        listaModelVendasProdutos = new ArrayList<>();
-
-        modelVenda.setUsuarioId(1);
-
-        try {
-            modelVenda.setDataVenda(datas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
-        } catch (Exception e) {
-        }
-
-        modelVenda.setValorLiquido(Double.parseDouble(txtValorTotal.getText()));
-        modelVenda.setValorBruto(Double.parseDouble(txtValorTotal.getText()));
-        modelVenda.setDesconto(0.0);
-
-        //Salvar venda
-        codigoVenda = controllerVenda.salvarVendaController(modelVenda);
-
-        for (int i = 0; i < tablePDV.getRowCount(); i++) {
-            codigoProduto = (int) tablePDV.getValueAt(i, 1);
-            //venda
-            modelVendasProdutos = new ModelVendasProdutos();
-            modelProduto = new ModelProdutos();
-            modelVendasProdutos.setProdutoId(codigoProduto);
-            modelVendasProdutos.setVendaId(codigoVenda);
-            modelVendasProdutos.setValorUnitario((Double) tablePDV.getValueAt(i, 4));
-            modelVendasProdutos.setQuantidade(Integer.parseInt(tablePDV.getValueAt(i, 3).toString()));
-            //dar baixa no estoque
-            modelProduto.setIdProduto(codigoProduto);
-            modelProduto.setEstoque(controllerProduto.retornaProdutoController(codigoProduto).getEstoque()
-                    - Integer.parseInt(tablePDV.getValueAt(i, 3).toString()));
-            listaModelVendasProdutos.add(modelVendasProdutos);
-            listaModelProdutos.add(modelProduto);
-        }
-        // salvar os produtos da venda
-        if (controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutos)) {
-            // alterar o estoque de produtos
-            controllerProduto.alterarEstoqueProdutoController(listaModelProdutos);
-            JOptionPane.showMessageDialog(this, "Produtos da venda salva com sucesso", "Atenção", JOptionPane.WARNING_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Erro ao salvar produtos", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-        this.limparForm();
+        // Botao F4 finalizar venda
+        viewPagamentoPDV.setValorTotal(Float.parseFloat(txtValorTotal.getText()));
+        viewPagamentoPDV.setTextValorTotal();
+        viewPagamentoPDV.setVisible(true);
+        
+        
+        
+        
+        //this.salvarVenda();
     }//GEN-LAST:event_MenuItemFInalizarVendaActionPerformed
 
     private void jMenuItemQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuantidadeActionPerformed
@@ -495,9 +462,9 @@ public class ViewPDV extends javax.swing.JFrame {
                 txtValorTotal.setText(String.valueOf(somaValorTotal()));
                 txtCodProduto.setText("");
                 quantidade = 1;
-                
+
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Codigo não cadastrado","Erro",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Codigo não cadastrado", "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -557,6 +524,52 @@ public class ViewPDV extends javax.swing.JFrame {
 
     private void setarOperador() {
         txtOperador.setText(modelSessaoUsuario.nome);
+    }
+
+    private void salvarVenda() {
+        int codigoProduto = 0, codigoVenda = 0;
+
+        listaModelVendasProdutos = new ArrayList<>();
+
+        modelVenda.setUsuarioId(1);
+
+        try {
+            modelVenda.setDataVenda(datas.converterDataParaDateUS(new java.util.Date(System.currentTimeMillis())));
+        } catch (Exception e) {
+        }
+
+        modelVenda.setValorLiquido(Double.parseDouble(txtValorTotal.getText()));
+        modelVenda.setValorBruto(Double.parseDouble(txtValorTotal.getText()));
+        modelVenda.setDesconto(0.0);
+
+        //Salvar venda
+        codigoVenda = controllerVenda.salvarVendaController(modelVenda);
+
+        for (int i = 0; i < tablePDV.getRowCount(); i++) {
+            codigoProduto = (int) tablePDV.getValueAt(i, 1);
+            //venda
+            modelVendasProdutos = new ModelVendasProdutos();
+            modelProduto = new ModelProdutos();
+            modelVendasProdutos.setProdutoId(codigoProduto);
+            modelVendasProdutos.setVendaId(codigoVenda);
+            modelVendasProdutos.setValorUnitario((Double) tablePDV.getValueAt(i, 4));
+            modelVendasProdutos.setQuantidade(Integer.parseInt(tablePDV.getValueAt(i, 3).toString()));
+            //dar baixa no estoque
+            modelProduto.setIdProduto(codigoProduto);
+            modelProduto.setEstoque(controllerProduto.retornaProdutoController(codigoProduto).getEstoque()
+                    - Integer.parseInt(tablePDV.getValueAt(i, 3).toString()));
+            listaModelVendasProdutos.add(modelVendasProdutos);
+            listaModelProdutos.add(modelProduto);
+        }
+        // salvar os produtos da venda
+        if (controllerVendasProdutos.salvarVendasProdutosController(listaModelVendasProdutos)) {
+            // alterar o estoque de produtos
+            controllerProduto.alterarEstoqueProdutoController(listaModelProdutos);
+            JOptionPane.showMessageDialog(this, "Produtos da venda salva com sucesso", "Atenção", JOptionPane.WARNING_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Erro ao salvar produtos", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        this.limparForm();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
