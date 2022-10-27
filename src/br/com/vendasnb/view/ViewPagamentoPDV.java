@@ -20,6 +20,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     private float valorRecebido;
     private float troco;
     private String formaPagamento;
+    private boolean flag;
     
 
     /**
@@ -29,6 +30,8 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.listaFormaPagamento();
+        this.flag = false;
+        this.calcularPagamento();
     }
 
     /**
@@ -51,7 +54,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         viewPagDesconto = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        txtValor = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -87,6 +90,11 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         jLabel1.setText("Pagamento:");
 
         viewPagRecebido.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        viewPagRecebido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                viewPagRecebidoFocusLost(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -105,6 +113,11 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         });
 
         viewPagDesconto.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        viewPagDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                viewPagDescontoFocusLost(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -115,23 +128,25 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
 
-        jLabel4.setText("jLabel4");
+        txtValor.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        txtValor.setForeground(new java.awt.Color(255, 255, 255));
+        txtValor.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(272, 272, 272)
-                .addComponent(jLabel4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtValor)
+                .addGap(281, 281, 281))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel4)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(txtValor)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -173,13 +188,13 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
                         .addGap(33, 33, 33)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(viewPagDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(viewPagRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(viewPagDesconto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(viewPagRecebido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -220,22 +235,20 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
                     .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewPagRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(viewPagDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(viewPagRecebido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(73, 73, 73)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1)
                         .addComponent(jLabel6)))
-                .addGap(60, 60, 60)
+                .addGap(6, 6, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(viewPagTroco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -274,13 +287,23 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         this.troco = Float.parseFloat(this.viewPagTroco.getText());
         this.valorTotal = Float.parseFloat(this.viewPagSubTotal.getText());
         this.formaPagamento = jComboBox.getSelectedItem().toString();
-        
+        this.flag = true;
         dispose();
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxActionPerformed
+
+    private void viewPagDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_viewPagDescontoFocusLost
+        // TODO add your handling code here:
+        this.calcularPagamento();
+    }//GEN-LAST:event_viewPagDescontoFocusLost
+
+    private void viewPagRecebidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_viewPagRecebidoFocusLost
+        // TODO add your handling code here:
+        this.calcularPagamento();
+    }//GEN-LAST:event_viewPagRecebidoFocusLost
 
     /**
      * @param args the command line arguments
@@ -343,7 +366,6 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -351,6 +373,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel txtValor;
     private javax.swing.JFormattedTextField viewPagDesconto;
     private javax.swing.JFormattedTextField viewPagRecebido;
     private javax.swing.JFormattedTextField viewPagSubTotal;
@@ -429,5 +452,48 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     
     public void setTextValorTotal(){
         this.viewPagSubTotal.setText(this.valorTotal + "");
+    }
+    
+    
+    //Calcula o valor total a pagar e o troco
+    private void calcularPagamento() {
+        float subTotal, desconto, recebido, pagar, troco;
+        subTotal = Float.parseFloat(viewPagSubTotal.getText());
+        
+        if (!viewPagDesconto.getText().equals("")) {
+            desconto = Float.parseFloat(viewPagDesconto.getText());
+        } else {
+            desconto = 0;
+        }
+        
+        if (!viewPagRecebido.getText().equals("")) {
+            recebido = Float.parseFloat(viewPagRecebido.getText());
+        } else {
+            recebido = 0;
+        }
+                
+        //calcular valor a pagar
+        pagar = subTotal - desconto;
+        txtValor.setText(pagar+"");
+        //calculando troco
+        troco = recebido - pagar;
+        viewPagTroco.setText(troco+"");
+        
+
+        
+    }
+
+    /**
+     * @return the flag
+     */
+    public boolean isFlag() {
+        return flag;
+    }
+
+    /**
+     * @param flag the flag to set
+     */
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 }

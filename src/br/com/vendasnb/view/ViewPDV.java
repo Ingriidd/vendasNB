@@ -450,10 +450,13 @@ public class ViewPDV extends javax.swing.JFrame {
         
         txtValor.setText(viewPagamentoPDV.getValorTotal()+"");
         txtDesconto.setText(viewPagamentoPDV.getDesconto()+"");
+        if (viewPagamentoPDV.isFlag()){
+            this.salvarVenda();
+        }else{
+            JOptionPane.showMessageDialog(this, "Você cancelou o pagamento!");
+        }
         
         
-        
-        this.salvarVenda();
     }//GEN-LAST:event_MenuItemFInalizarVendaActionPerformed
 
     private void jMenuItemQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemQuantidadeActionPerformed
@@ -567,6 +570,8 @@ public class ViewPDV extends javax.swing.JFrame {
 
     private void limparForm() {
         txtValorTotal.setText("");
+        txtValor.setText("");
+        txtDesconto.setText("");
         DefaultTableModel modelo = (DefaultTableModel) tablePDV.getModel();
         modelo.setNumRows(0);
 
