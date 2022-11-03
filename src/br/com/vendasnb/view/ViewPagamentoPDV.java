@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * @author Nicolas
  */
 public class ViewPagamentoPDV extends javax.swing.JDialog {
+
     ArrayList<ModelFormaPagamento> listaModelFormaPagamentos = new ArrayList<>();
     ControllerFormaPagamento controllerFormaPagamento = new ControllerFormaPagamento();
     private float valorTotal;
@@ -21,7 +22,6 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     private float troco;
     private String formaPagamento;
     private boolean flag;
-    
 
     /**
      * Creates new form ViewPagamentoPDV
@@ -31,6 +31,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         initComponents();
         this.listaFormaPagamento();
         this.flag = false;
+        this.viewPagDesconto.setText("0");
         this.calcularPagamento();
     }
 
@@ -95,6 +96,11 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
                 viewPagRecebidoFocusLost(evt);
             }
         });
+        viewPagRecebido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPagRecebidoActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -116,6 +122,11 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         viewPagDesconto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 viewPagDescontoFocusLost(evt);
+            }
+        });
+        viewPagDesconto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                viewPagDescontoActionPerformed(evt);
             }
         });
 
@@ -289,6 +300,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         this.formaPagamento = jComboBox.getSelectedItem().toString();
         this.flag = true;
         dispose();
+        this.limparForm();
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
@@ -304,6 +316,14 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         // TODO add your handling code here:
         this.calcularPagamento();
     }//GEN-LAST:event_viewPagRecebidoFocusLost
+
+    private void viewPagDescontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPagDescontoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewPagDescontoActionPerformed
+
+    private void viewPagRecebidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPagRecebidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewPagRecebidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,12 +366,11 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
             }
         });
     }
-    
+
     /**
      * Preencher comboboxcom todas as descriçoes
      */
-    
-    private void listaFormaPagamento(){
+    private void listaFormaPagamento() {
         listaModelFormaPagamentos = controllerFormaPagamento.getListaFormaPagamentoController();
         jComboBox.removeAllItems();
         for (int i = 0; i < listaModelFormaPagamentos.size(); i++) {
@@ -449,38 +468,41 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     public void setFormaPagamento(String formaPagamento) {
         this.formaPagamento = formaPagamento;
     }
-    
-    public void setTextValorTotal(){
+
+    public void setTextValorTotal() {
         this.viewPagSubTotal.setText(this.valorTotal + "");
     }
-    
-    
+
     //Calcula o valor total a pagar e o troco
     private void calcularPagamento() {
         float subTotal, desconto, recebido, pagar, troco;
-        subTotal = Float.parseFloat(viewPagSubTotal.getText());
-        
+
+        try {
+            subTotal = Float.parseFloat(viewPagSubTotal.getText());
+
+        } catch (Exception e) {
+            subTotal = 0;
+        }
+
         if (!viewPagDesconto.getText().equals("")) {
             desconto = Float.parseFloat(viewPagDesconto.getText());
         } else {
             desconto = 0;
         }
-        
+
         if (!viewPagRecebido.getText().equals("")) {
             recebido = Float.parseFloat(viewPagRecebido.getText());
         } else {
             recebido = 0;
         }
-                
+
         //calcular valor a pagar
         pagar = subTotal - desconto;
-        txtValor.setText(pagar+"");
+        txtValor.setText(pagar + "");
         //calculando troco
         troco = recebido - pagar;
-        viewPagTroco.setText(troco+"");
-        
+        viewPagTroco.setText(troco + "");
 
-        
     }
 
     /**
@@ -495,5 +517,13 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
      */
     public void setFlag(boolean flag) {
         this.flag = flag;
+    }
+
+    private void limparForm() {
+        viewPagSubTotal.setText("");
+        viewPagDesconto.setText("0");
+        viewPagRecebido.setText("");
+        viewPagTroco.setText("");
+        txtValor.setText("0");
     }
 }
