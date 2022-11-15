@@ -42,8 +42,7 @@ Projeto de sistema para gestão de vendas e controle de estoque, com implemenç�
 <img height="450em" src="https://raw.githubusercontent.com/Nicolas-Bueno/vendasNB/main/imagens_software/vendas.png"/>
 
 <h4 align="center"> 
-	🚧 PDV em construção...  🚧	
-	🚧 Novos CRUD em construção...  🚧
+	🚧 PDV em construção...  🚧
 </h4>
 
 ### Tecnologias 🛠
