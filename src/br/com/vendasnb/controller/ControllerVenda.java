@@ -6,7 +6,10 @@ package br.com.vendasnb.controller;
 
 import br.com.vendasnb.dao.DAOVenda;
 import br.com.vendasnb.model.ModelVenda;
+import br.com.vendasnb.util.Datas;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -60,5 +63,13 @@ public class ControllerVenda {
     
     public boolean excluiiVendaController(int pCodigo){
         return this.daoVenda.excluirVendaDAO(pCodigo);
+    }
+    
+    public Double getTotalVendasDiaController(Date pdate){
+        return this.daoVenda.totalVendasDia(pdate);
+    }
+    
+    public Double getTotalVendasMesController(String pInicio, String pFinal){
+        return this.daoVenda.totalVendasMes(pInicio, pFinal);
     }
 }

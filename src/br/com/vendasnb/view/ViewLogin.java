@@ -210,7 +210,7 @@ public class ViewLogin extends javax.swing.JFrame {
             modelSessaoUsuario.codigo = modelUsuario.getIdUsuario();
             modelSessaoUsuario.nome = modelUsuario.getNomeUsuario();
             modelSessaoUsuario.login = modelUsuario.getLogin();
-            new ViewPrincipal().setVisible(true);
+            new ViewPrincipal().setVisible(true);          
         } else {
             JOptionPane.showMessageDialog(this, "Usuário/Senha invalido!", "AVISO", JOptionPane.WARNING_MESSAGE);
         }

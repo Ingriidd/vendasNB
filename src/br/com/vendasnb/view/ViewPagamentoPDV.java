@@ -62,7 +62,8 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         txtValor = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        viewPagTroco = new javax.swing.JTextField();
+        btnFinaliza = new javax.swing.JButton();
+        viewPagTroco1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -93,6 +94,9 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
 
         viewPagRecebido.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         viewPagRecebido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                viewPagRecebidoFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 viewPagRecebidoFocusLost(evt);
             }
@@ -100,6 +104,17 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         viewPagRecebido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 viewPagRecebidoActionPerformed(evt);
+            }
+        });
+        viewPagRecebido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                viewPagRecebidoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                viewPagRecebidoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                viewPagRecebidoKeyTyped(evt);
             }
         });
 
@@ -148,26 +163,33 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(275, 275, 275)
                 .addComponent(txtValor)
-                .addGap(281, 281, 281))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(32, 32, 32)
                 .addComponent(txtValor)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Troco:");
 
-        viewPagTroco.setBackground(new java.awt.Color(255, 255, 0));
-        viewPagTroco.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        viewPagTroco.setForeground(new java.awt.Color(0, 0, 0));
+        btnFinaliza.setText("OK");
+        btnFinaliza.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizaActionPerformed(evt);
+            }
+        });
+
+        viewPagTroco1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        viewPagTroco1.setForeground(new java.awt.Color(255, 255, 0));
+        viewPagTroco1.setText("0");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -200,12 +222,16 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
                                         .addGap(18, 18, 18)
                                         .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(61, 61, 61)
+                                .addGap(142, 142, 142)
                                 .addComponent(jLabel7)
-                                .addGap(31, 31, 31)
-                                .addComponent(viewPagTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 112, Short.MAX_VALUE)))
+                                .addGap(83, 83, 83)
+                                .addComponent(viewPagTroco1)))
+                        .addGap(0, 115, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnFinaliza, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,9 +256,11 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(viewPagTroco, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewPagTroco1)
                     .addComponent(jLabel7))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(btnFinaliza)
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,7 +289,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
 
     private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
         // TODO add your handling code here:
-        viewPagDesconto.requestFocus();
+        //viewPagDesconto.requestFocus();
     }//GEN-LAST:event_jComboBoxActionPerformed
 
     private void viewPagDescontoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_viewPagDescontoFocusLost
@@ -287,9 +315,37 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
 
     private void viewPagRecebidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewPagRecebidoActionPerformed
         // TODO add your handling code here:
-        this.finalizaPagamento();
-        
     }//GEN-LAST:event_viewPagRecebidoActionPerformed
+
+    private void btnFinalizaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizaActionPerformed
+        // TODO add your handling code here:
+        this.finalizaPagamento();
+    }//GEN-LAST:event_btnFinalizaActionPerformed
+
+    private void viewPagRecebidoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_viewPagRecebidoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_viewPagRecebidoFocusGained
+
+    private void viewPagRecebidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewPagRecebidoKeyTyped
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_viewPagRecebidoKeyTyped
+
+    private void viewPagRecebidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewPagRecebidoKeyReleased
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_viewPagRecebidoKeyReleased
+
+    private void viewPagRecebidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_viewPagRecebidoKeyPressed
+        // TODO add your handling code here:
+        this.finaliza(evt);
+    }//GEN-LAST:event_viewPagRecebidoKeyPressed
+
+    private void finaliza(java.awt.event.KeyEvent e) {
+        if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            this.finalizaPagamento();
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -345,6 +401,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFinaliza;
     private javax.swing.JComboBox<String> jComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -358,7 +415,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
     private javax.swing.JFormattedTextField viewPagDesconto;
     private javax.swing.JFormattedTextField viewPagRecebido;
     private javax.swing.JFormattedTextField viewPagSubTotal;
-    private javax.swing.JTextField viewPagTroco;
+    private javax.swing.JLabel viewPagTroco1;
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -465,7 +522,7 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         txtValor.setText(pagar + "");
         //calculando troco
         troco = recebido - pagar;
-        viewPagTroco.setText(troco + "");
+        viewPagTroco1.setText(troco + "");
 
     }
 
@@ -487,14 +544,14 @@ public class ViewPagamentoPDV extends javax.swing.JDialog {
         viewPagSubTotal.setText("");
         viewPagDesconto.setText("0");
         viewPagRecebido.setText("");
-        viewPagTroco.setText("");
+        viewPagTroco1.setText("");
         txtValor.setText("0");
     }
-    
-    private void finalizaPagamento(){
+
+    private void finalizaPagamento() {
         this.desconto = Float.parseFloat(this.viewPagDesconto.getText());
         this.valorRecebido = Float.parseFloat(this.viewPagRecebido.getText());
-        this.troco = Float.parseFloat(this.viewPagTroco.getText());
+        this.troco = Float.parseFloat(this.viewPagTroco1.getText());
         this.valorTotal = Float.parseFloat(this.viewPagSubTotal.getText());
         this.formaPagamento = jComboBox.getSelectedItem().toString();
         this.flag = true;

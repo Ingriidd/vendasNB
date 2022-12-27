@@ -236,6 +236,11 @@ public class ViewVendas extends javax.swing.JFrame {
                 txtVenValorTotalFocusLost(evt);
             }
         });
+        txtVenValorTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtVenValorTotalActionPerformed(evt);
+            }
+        });
 
         btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/deletar.png"))); // NOI18N
         btnRemove.setToolTipText("Remover");
@@ -784,6 +789,10 @@ public class ViewVendas extends javax.swing.JFrame {
             this.preencherComboBoxProduto();
         }
     }//GEN-LAST:event_txtVenNomeProPopupMenuWillBecomeInvisible
+
+    private void txtVenValorTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtVenValorTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtVenValorTotalActionPerformed
 
     /**
      * @param args the command line arguments

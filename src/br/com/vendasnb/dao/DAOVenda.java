@@ -6,7 +6,10 @@ package br.com.vendasnb.dao;
 
 import br.com.vendasnb.conexoes.ConexaoMysql;
 import br.com.vendasnb.model.ModelVenda;
+import br.com.vendasnb.util.Datas;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -140,4 +143,36 @@ public class DAOVenda extends ConexaoMysql {
         }
         return listaModelVenda;
     } 
+    
+    public Double totalVendasDia(Date pDate){
+        Double total = null;
+        try {
+            this.conectar();
+            this.executarSQL("SELECT SUM(valor_liquido) FROM venda WHERE data_venda = '" + pDate +"';");
+            while(this.getResultSet().next()){
+                total = this.getResultSet().getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.fecharConexao();
+        }
+        return total;
+    }
+    
+    public Double totalVendasMes(String pInicio, String pFinal){
+        Double total = null;
+        try {
+            this.conectar();
+            this.executarSQL("SELECT SUM(valor_liquido) FROM venda WHERE data_venda BETWEEN '" + pInicio +"' AND '" + pFinal + "';");
+            while(this.getResultSet().next()){
+                total = this.getResultSet().getDouble(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            this.fecharConexao();
+        }
+        return total;
+    }
 }

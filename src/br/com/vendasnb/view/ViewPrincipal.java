@@ -4,6 +4,9 @@
  */
 package br.com.vendasnb.view;
 
+import br.com.vendasnb.controller.ControllerUsuario;
+import br.com.vendasnb.model.ModelSessaoUsuario;
+import br.com.vendasnb.model.ModelUsuario;
 import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Component;
@@ -22,7 +25,10 @@ import javax.swing.plaf.basic.BasicMenuBarUI;
  * @author Nicolas
  */
 public class ViewPrincipal extends javax.swing.JFrame {
-
+    
+    ControllerUsuario controllerUsuario = new ControllerUsuario();
+    ModelUsuario modelUsuario = new ModelUsuario();
+    ModelSessaoUsuario modelSessaoUsuario = new ModelSessaoUsuario();
     /**
      * Creates new form ViewPrincipal
      */
@@ -30,6 +36,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
         this.customizeMenuBar(jMenuBar1);
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -55,6 +62,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         btnPDV = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        btnPDV1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -161,6 +170,20 @@ public class ViewPrincipal extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/online_icon 32px.png"))); // NOI18N
         jLabel7.setToolTipText("PDV");
 
+        btnPDV1.setBackground(new java.awt.Color(102, 102, 255));
+        btnPDV1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        btnPDV1.setForeground(new java.awt.Color(255, 255, 255));
+        btnPDV1.setText("Relatório");
+        btnPDV1.setToolTipText("Relatorio");
+        btnPDV1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPDV1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPDV1ActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/dashboard_graphic_icon 32px.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -173,7 +196,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnPDV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -181,7 +205,8 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addComponent(btnUsu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnCar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPDV1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -209,9 +234,13 @@ public class ViewPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnPDV)
-                    .addComponent(jLabel7))
-                .addContainerGap(158, Short.MAX_VALUE))
+                    .addComponent(jLabel7)
+                    .addComponent(btnPDV))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnPDV1)
+                    .addComponent(jLabel8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/vendasnb/imagens/undrawpequeno.png"))); // NOI18N
@@ -223,7 +252,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
             .addGroup(uJPanelImagem1Layout.createSequentialGroup()
                 .addGap(129, 129, 129)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 296, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 332, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -349,7 +378,14 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void MenuUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuUsuActionPerformed
         // View Usuarios
-        new ViewUsuario().setVisible(true);
+        try {
+            if(ModelSessaoUsuario.login.equals("admin")){
+            btnUsu.setEnabled(true);
+            new ViewUsuario().setVisible(true);
+        }   
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Usuário não é um ADMINISTRADOR!", "AVISO", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_MenuUsuActionPerformed
 
     private void menuCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCargoActionPerformed
@@ -388,7 +424,16 @@ public class ViewPrincipal extends javax.swing.JFrame {
 
     private void btnUsuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuActionPerformed
         // TODO add your handling code here:
-        new ViewUsuario().setVisible(true);
+        try {
+            if(ModelSessaoUsuario.login.equals("admin")){
+            btnUsu.setEnabled(true);
+            new ViewUsuario().setVisible(true);
+        }   
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Usuário não é um ADMINISTRADOR!", "AVISO", JOptionPane.WARNING_MESSAGE);
+        }
+        
+        
     }//GEN-LAST:event_btnUsuActionPerformed
 
     private void btnProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProActionPerformed
@@ -405,6 +450,11 @@ public class ViewPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         new ViewPDV().setVisible(true);
     }//GEN-LAST:event_btnPDVActionPerformed
+
+    private void btnPDV1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPDV1ActionPerformed
+        // TODO add your handling code here:
+        new ViewDashboard().setVisible(true);
+    }//GEN-LAST:event_btnPDV1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -491,8 +541,9 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnCar;
     private javax.swing.JButton btnFor;
     private javax.swing.JButton btnPDV;
+    private javax.swing.JButton btnPDV1;
     private javax.swing.JButton btnPro;
-    private javax.swing.JButton btnUsu;
+    public javax.swing.JButton btnUsu;
     private javax.swing.JButton btnVenda;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -501,6 +552,7 @@ public class ViewPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

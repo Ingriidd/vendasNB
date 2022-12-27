@@ -474,17 +474,15 @@ public class ViewProduto extends javax.swing.JFrame {
         try {
             modelProdutos.setNome(this.txtProNome.getText());
             modelProdutos.setEstoque(Integer.parseInt(this.txtProEst.getText()));
-            modelProdutos.setValor(formatador.converterVirgulaParaPonto(this.txtProValorCom.getText()));
+            modelProdutos.setValor(formatador.converterVirgulaParaPonto(this.txtProValorVen.getText()));
             modelProdutos.setValorCompra(formatador.converterVirgulaParaPonto(this.txtProValorCom.getText()));
-            modelProdutos.setFornecedor(Integer.parseInt(this.txtProValorCom.getText()));
+            modelProdutos.setFornecedor(Integer.parseInt(this.txtProCodFor.getText()));
 
             if (controllerProdutos.alterarProdutoController(modelProdutos)) {
                 JOptionPane.showMessageDialog(this, "Produto alterado com sucesso!", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
                 this.carregarProdutos();
                 this.limparCampo();
                 habilitarDesabilitarCampos(false);
-            } else {
-                JOptionPane.showMessageDialog(this, "Erro ao alterar o produto!", "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao alterar o produto!", "ERRO", JOptionPane.ERROR_MESSAGE);

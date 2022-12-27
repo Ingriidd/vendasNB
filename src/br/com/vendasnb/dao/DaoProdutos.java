@@ -50,10 +50,7 @@ public class DaoProdutos extends ConexaoMysql {
             this.conectar();
             this.executarUpdateDeleteSQL(
                     "SET FOREIGN_KEY_CHECKS=0;");
-            return this.executarUpdateDeleteSQL( "DELETE FROM produto WHERE id=" + pIdProduto
-
-
-                    
+            return this.executarUpdateDeleteSQL("DELETE FROM produto WHERE id=" + pIdProduto
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -74,12 +71,14 @@ public class DaoProdutos extends ConexaoMysql {
             this.conectar();
             return this.executarUpdateDeleteSQL(
                     "UPDATE produto SET "
+                     + "id = '" + pModelProdutos.getIdProduto() + "',"
                     + "nome = '" + pModelProdutos.getNome() + "',"
-                    + "estoque ='" + pModelProdutos.getEstoque() + "',"
-                    + "valor ='" + pModelProdutos.getValor() + "',"
-                    + "valor_compra ='" + pModelProdutos.getValorCompra() + "',"
-                    + "fornecedor_id ='" + pModelProdutos.getFornecedor() + "'"
-                    + "WHERE id = '" + pModelProdutos.getIdProduto() + "'"
+                    + " estoque = '" + pModelProdutos.getEstoque() + "',"
+                    + " valor = '" + pModelProdutos.getValor() + "',"
+                    + " valor_compra = '" + pModelProdutos.getValorCompra() + "',"
+                    + " fornecedor_id = '" + pModelProdutos.getFornecedor() + "'"
+                    + " WHERE "
+                    + "id = '" + pModelProdutos.getIdProduto() + "';"
             );
         } catch (Exception e) {
             e.printStackTrace();
@@ -193,7 +192,7 @@ public class DaoProdutos extends ConexaoMysql {
                 this.executarUpdateDeleteSQL(
                         "UPDATE produto SET "
                         + "estoque ='" + plistaModelProdutos.get(i).getEstoque() + "'"
-                        + "WHERE id = '" + plistaModelProdutos.get(i).getIdProduto() + "'"
+                        + " WHERE id = '" + plistaModelProdutos.get(i).getIdProduto() + "'"
                 );
             }
             return true;
